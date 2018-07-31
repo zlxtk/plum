@@ -1,6 +1,6 @@
 package com.zlxtk.boot.plum.security.model;
 
-import com.zlxtk.boot.plum.base.BaseModel;
+import com.zlxtk.boot.plum.base.model.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

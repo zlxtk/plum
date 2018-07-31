@@ -1,4 +1,4 @@
-package com.zlxtk.boot.plum.base;
+package com.zlxtk.boot.plum.base.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.NonNull;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
  * @Date: 2018/7/31 12:02
  */
 @MappedSuperclass
-public class BaseModel {
+public class BaseModel implements Serializable, Comparable{
 
     @NonNull
     @Column(nullable = false)
@@ -47,4 +49,9 @@ public class BaseModel {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Column()
     private LocalDateTime updateTime;
+
+    @Override
+    public int compareTo(Object o) {
+        return CompareToBuilder.reflectionCompare(this, o);
+    }
 }
