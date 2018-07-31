@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * @Description: 角色实体类
+ * @Description: 权限实体类
  * @Auther: tangyake
  * @Date: 2018/7/31 12:29
  */
@@ -21,7 +21,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 @Entity
-public class SysRole extends BaseModel {
+public class SysPermission extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
