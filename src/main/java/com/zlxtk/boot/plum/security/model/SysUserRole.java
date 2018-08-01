@@ -4,7 +4,6 @@ import com.zlxtk.boot.plum.base.model.BaseModel;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * @Description: 角色实体类
@@ -14,31 +13,23 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper=true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "sys_role")
-public class SysRole extends BaseModel {
+@Table(name = "sys_user_role")
+public class SysUserRole extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
-    @Column(nullable = false,length = 50)
-    private String roleCode;//角色编码
+    @Column(nullable = false)
+    private String username;
 
     @NonNull
-    @Column(nullable = false,length = 50)
-    private String roleName;//角色名
-
     @Column(nullable = false)
-    @Builder.Default
-    private Integer displayOrder=0;
+    private String roleCode;
 
-    @Transient
-    private Set<SysUser> users;
-
-    @Transient
-    private Set<SysPermission> permissions;
 }

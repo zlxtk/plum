@@ -22,11 +22,6 @@ import java.util.Map;
 public final class GlobalExceptionRegister {
     private static Map<Class<? extends Exception>, JsonResponse> errorMap = Maps.newHashMap();
 
-    public static void main(String[] args) {
-        HttpStatus a = HttpStatus.BAD_REQUEST;
-        System.out.println(a.name());
-        System.out.println(a.value());
-    }
 
     //初始化状态码与文字说明
     static {
@@ -60,7 +55,6 @@ public final class GlobalExceptionRegister {
     }
 
     /**
-     *
      * @param e Exception
      * @return 返回JsonResponse
      */

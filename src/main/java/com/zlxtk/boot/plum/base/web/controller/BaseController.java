@@ -68,7 +68,7 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
             sort = Sorts.builder().desc(direction.equals("desc"),properties).build();
         }
 
-        PageRequest pageRequest = new PageRequest(page <= 0 ? 0 : page - 1, size, sort);
+        PageRequest pageRequest = PageRequest.of(page <= 0 ? 0 : page - 1, size, sort);
 
         Map<String, Object> params = ObjectUtil.getEntityPersistentFieldValueExceptId(o);
         PredicateBuilder<T> predicateBuilder= Specifications.<T>and();

@@ -4,7 +4,7 @@
 package com.zlxtk.boot.plum.base.exception;
 
 
-import com.simbest.boot.base.web.response.JsonResponse;
+import com.zlxtk.boot.plum.base.web.response.JsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
