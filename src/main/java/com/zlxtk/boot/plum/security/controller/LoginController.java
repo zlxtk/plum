@@ -13,6 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @RequestMapping("/")
+    public String home(Model model) {
+        model.addAttribute("message", "hahaha");
+        return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+    @RequestMapping("/index")
     public String index(Model model) {
         model.addAttribute("message", "hahaha");
         return "index";

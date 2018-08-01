@@ -2,9 +2,14 @@ package com.zlxtk.boot.plum.security.config;
 
 import com.zlxtk.boot.plum.security.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
@@ -17,23 +22,54 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  *
  */
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ISysUserService userService;
 
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
+    /**
+     * @return 封装身份认证提供者
+     */
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userService);  //自定义的用户和角色数据提供者
+//        authenticationProvider.setPasswordEncoder(passwordEncoder()); //设置密码加密对象
+        return authenticationProvider;
+    }
+
+    /**
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(authenticationProvider());
         auth.userDetailsService(userService);
+        /**
+         * NoOpPasswordEncoder 明文方式保存
+         * BCtPasswordEncoder 强hash方式加密
+         * StandardPasswordEncoder SHA-256方式加密
+         * 实现PasswordEncoder接口 自定义加密方式
+         */
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
+                .antMatchers("/css/**","/js/**").permitAll()
+                .antMatchers("/error", "/login", "/logout").permitAll()  // 都可以访问
+                .antMatchers("/h2-console/**", "/html/**").permitAll()  // 都可以访问
                 .and().formLogin().loginPage("/login")
-                //设置默认登录成功跳转页面
+                .usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/index").failureUrl("/login?error").permitAll()
                 .and()
                 //开启cookie保存用户数据
@@ -47,8 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //默认注销行为为logout，可以通过下面的方式来修改
                 .logoutUrl("/custom-logout")
                 //设置注销成功后跳转页面，默认是跳转到登录页面
-                .logoutSuccessUrl("")
-                .permitAll();
+                .logoutSuccessUrl("").permitAll()
+                .and().csrf().disable();;
 
 //        http
 //                .addFilterBefore(captchaUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
@@ -78,5 +114,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .maxSessionsPreventsLogin(true)
 //                .sessionRegistry(sessionRegistry());
 //        //.expiredUrl(ApplicationConstants.LOGIN_PAGE);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+
     }
 }
