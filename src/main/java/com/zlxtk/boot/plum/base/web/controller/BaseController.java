@@ -28,9 +28,9 @@ import java.util.Map;
 
 
 /**
- * 用途：通用类对象控制器
- * 作者: lishuyi
- * 时间: 2018/6/7  15:59
+ * 基础 Controller
+ * @param <T>
+ * @param <PK>
  */
 @Slf4j
 public class BaseController<T extends BaseModel, PK extends Serializable> {

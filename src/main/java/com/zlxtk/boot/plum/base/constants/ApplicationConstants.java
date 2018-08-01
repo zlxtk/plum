@@ -7,8 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 用途：应用常量
- * 作者: lishuyi
- * 时间: 2018/2/27  17:45
  */
 public class ApplicationConstants {
     public static final int ZERO = 0;
@@ -22,7 +20,7 @@ public class ApplicationConstants {
     public static final String Linux = "Linux";
     public static final String Windows = "Windows";
 
-    public static final String PACKAGE_NAME = "com.simbest.boot";
+    public static final String PACKAGE_NAME = "com.zlxtk.boot";
     public static final String HOME_PAGE = "/";
     public static final String LOGIN_PAGE = "/login";
     public static final String UUMS_LOGIN_PAGE = "/uumslogin";
