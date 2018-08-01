@@ -25,17 +25,17 @@ public interface IBaseService<T extends BaseModel, PK extends Serializable> {
 
     T findById(PK id);
 
-    T insert(T var1);
+    T insert(T o);
 
-    T update(T var1);
+    T update(T o);
 
-    void deleteById(PK var1);
+    void deleteById(PK id);
 
-    void delete(T var1);
+    void delete(T o);
 
-    void deleteAll(Iterable<? extends T> var1);
+    void deleteAll(Iterable<? extends T> iterable);
 
     void deleteAll();
 
-    void deleteAllByIds(Iterable<? extends PK> var1);
+    void deleteAllByIds(Iterable<? extends PK> ids);
 }

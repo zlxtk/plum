@@ -1,6 +1,8 @@
 package com.zlxtk.boot.plum.base.service.impl;
 
+import com.google.common.collect.Sets;
 import com.zlxtk.boot.plum.base.exception.InsertExistObjectException;
+import com.zlxtk.boot.plum.base.exception.UpdateNotExistObjectException;
 import com.zlxtk.boot.plum.base.model.BaseModel;
 import com.zlxtk.boot.plum.base.repository.BaseRepository;
 import com.zlxtk.boot.plum.base.service.IBaseService;
@@ -13,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Description:
@@ -24,7 +27,8 @@ public class BaseService<T extends BaseModel, PK extends Serializable> implement
 
     private BaseRepository<T, PK> baseRepository;
 
-    public BaseService() {}
+    public BaseService() {
+    }
 
     public BaseService(BaseRepository<T, PK> baseRepository) {
         this.baseRepository = baseRepository;
@@ -51,7 +55,7 @@ public class BaseService<T extends BaseModel, PK extends Serializable> implement
     @Override
     public Page<T> findAll(Pageable var1) {
         log.debug("@Base Repository Service findAll object PageSize:" + var1.getPageSize() + ":PageNumber:" + var1.getPageNumber());
-        return baseRepository.findAll( var1 );
+        return baseRepository.findAll(var1);
     }
 
     @Override
@@ -62,10 +66,10 @@ public class BaseService<T extends BaseModel, PK extends Serializable> implement
 
     @Override
     @Transactional
-    public T insert(T var1) {
-        if(null == ObjectUtil.getEntityIdVaue(var1)) {
-            log.debug("@Base Repository Service create new object: " + var1);
-            return baseRepository.save(var1);
+    public T insert(T o) {
+        if (null == ObjectUtil.getEntityIdVaue(o)) {
+            log.debug("@Base Repository Service create new object: " + o);
+            return baseRepository.save(o);
         } else {
             throw new InsertExistObjectException();
         }
@@ -73,37 +77,51 @@ public class BaseService<T extends BaseModel, PK extends Serializable> implement
 
     @Override
     @Transactional
-    public T update(T var1) {
-        return null;
+    public T update(T o) {
+        if (null != ObjectUtil.getEntityIdVaue(o)) {
+            log.debug("@Base Repository Service update a already object: " + o);
+            return baseRepository.save(o);
+        } else {
+            throw new UpdateNotExistObjectException();
+        }
     }
 
     @Override
     @Transactional
-    public void deleteById(PK var1) {
-
+    public void deleteById(PK id) {
+        log.debug("@Base Repository Service deleteById object by id: " + id);
+        baseRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public void delete(T var1) {
-
+    public void delete(T o) {
+        log.debug("@Base Repository Service delete object: " + o);
+        baseRepository.delete(o);
     }
 
     @Override
     @Transactional
-    public void deleteAll(Iterable<? extends T> var1) {
-
+    public void deleteAll(Iterable<? extends T> iterable) {
+        log.debug("@Base Repository Service deleteAll Iterable param");
+        baseRepository.deleteAll(iterable);
     }
 
     @Override
     @Transactional
     public void deleteAll() {
-
+        log.debug("@Base Repository Service deleteAll null param");
+        baseRepository.deleteAll();
     }
 
     @Override
     @Transactional
-    public void deleteAllByIds(Iterable<? extends PK> var1) {
-
+    public void deleteAllByIds(Iterable<? extends PK> ids) {
+        log.debug("@Base Repository Service deleteAllByIds Iterable param");
+        Set<T> psSet = Sets.newHashSet();
+        for (PK pk : ids) {
+            psSet.add(baseRepository.findById(pk).orElse(null));
+        }
+        baseRepository.deleteAll(psSet);
     }
 }
