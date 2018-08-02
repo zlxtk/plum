@@ -1,5 +1,7 @@
 package com.zlxtk.boot.plum.security.config;
 
+import com.zlxtk.boot.plum.security.handler.SuccessLoginHandler;
+import com.zlxtk.boot.plum.security.handler.SuccessLogoutHandler;
 import com.zlxtk.boot.plum.security.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,15 +13,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
  * @Description:
  * @Auther: tangyake
  * @Date: 2018/8/1 17:57
- *
+ * <p>
  * 参考
  * https://blog.csdn.net/u012702547/article/details/54319508
- *
  */
 @Configuration
 @EnableWebSecurity
@@ -27,6 +29,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ISysUserService userService;
+
+    @Autowired
+    SuccessLoginHandler successLoginHandler;
+    @Autowired
+    SuccessLogoutHandler successLogoutHandler;
 
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -44,14 +51,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     *
      * @param auth
      * @throws Exception
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.authenticationProvider(authenticationProvider());
-        auth.userDetailsService(userService);
+        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
         /**
          * NoOpPasswordEncoder 明文方式保存
          * BCtPasswordEncoder 强hash方式加密
@@ -65,26 +71,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
-                .antMatchers("/css/**","/js/**").permitAll()
-                .antMatchers("/error", "/login", "/logout").permitAll()  // 都可以访问
-                .antMatchers("/h2-console/**", "/html/**").permitAll()  // 都可以访问
-                .and().formLogin().loginPage("/login")
-                .usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/index").failureUrl("/login?error").permitAll()
+                .antMatchers("/css/**", "/js/**", "/html/**").permitAll()
+                .antMatchers("/error", "/logout").permitAll()  // 都可以访问
+                .antMatchers("/h2-console/**").permitAll()  // 都可以访问
+                .antMatchers("/", "/index").access("hasRole('USER')")
+                .and().formLogin().loginPage("/login").successHandler(successLoginHandler)
+                .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()
                 //开启cookie保存用户数据
-                .rememberMe()
-                //设置cookie有效期
-                .tokenValiditySeconds(60 * 60 * 24 * 7)
-                //设置cookie的私钥
-                .key("")
+                .rememberMe().tokenValiditySeconds(60 * 60 * 24 * 7).key("plumCKRM")
                 .and()
-                .logout()
-                //默认注销行为为logout，可以通过下面的方式来修改
-                .logoutUrl("/custom-logout")
-                //设置注销成功后跳转页面，默认是跳转到登录页面
-                .logoutSuccessUrl("").permitAll()
-                .and().csrf().disable();;
+                .logout().logoutUrl("/logout").logoutSuccessHandler(successLogoutHandler).permitAll()
+                .and().csrf().disable();
+        ;
 
 //        http
 //                .addFilterBefore(captchaUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
