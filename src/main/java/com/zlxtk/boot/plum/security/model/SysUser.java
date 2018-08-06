@@ -46,7 +46,7 @@ public class SysUser extends BaseModel  implements UserDetails {
         List<GrantedAuthority> auths = new ArrayList<>();
         Set<SysRole> roles = this.getRoles();
         for (SysRole role : roles) {
-            auths.add(new SimpleGrantedAuthority(role.getRoleName()));
+            auths.add(new SimpleGrantedAuthority(role.getRoleCode()));
         }
         return auths;
     }
