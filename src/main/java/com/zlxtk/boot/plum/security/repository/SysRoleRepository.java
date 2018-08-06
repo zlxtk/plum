@@ -17,7 +17,7 @@ import java.util.List;
 public interface SysRoleRepository extends BaseRepository<SysRole,Long> {
 
     @Query(value = " SELECT r.* FROM sys_role AS r LEFT JOIN sys_user_role AS ur on r.roleCode=ur.roleCode " +
-            " WHERE ur.username=:username AND r.enabled=1 AND ur.enabled=1 ", nativeQuery = true)
+            " WHERE ur.username=:username AND r.state=1 AND ur.state=1 ", nativeQuery = true)
     List<SysRole> findAllByUsername(@Param("username") String username);
 
 }

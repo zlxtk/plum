@@ -19,7 +19,7 @@ public interface SysUserRepository extends BaseRepository<SysUser, Long> {
     SysUser findByUsername(String username);
 
     @Query(value = " SELECT u.* FROM sys_user AS u LEFT JOIN sys_user_role AS ur on ur.username=u.username " +
-            "WHERE ur.roleCode=:roleCode AND u.enabled=1 AND ur.enabled=1 ", nativeQuery = true)
+            "WHERE ur.roleCode=:roleCode AND u.state=1 AND ur.state=1 ", nativeQuery = true)
     List<SysUser> findAllByRoleCode(@Param("roleCode") String roleCode);
 
 }
