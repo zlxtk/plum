@@ -11,7 +11,7 @@ import javax.persistence.*;
  * @Date: 2018/7/31 12:29
  */
 @Data
-@EqualsAndHashCode(callSuper=true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
+@EqualsAndHashCode(callSuper = true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,10 +27,13 @@ public class SysPermission extends BaseModel {
     @Column(nullable = false, length = 100)
     private String permissionCode;//权限编码
 
+    @Column(length = 100)
+    private String parentCode;//上级权限编码
+
     @NonNull
     @Column(nullable = false, length = 30)
     private String permissionType;//权限类型
 
     @Column()
-    private String url;
+    private String permissionUrl;
 }

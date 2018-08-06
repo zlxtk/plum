@@ -34,7 +34,7 @@ public abstract class BaseModel implements Serializable, Comparable {
 
     @NonNull
     @Column(nullable = false)
-    private Integer enabled = 1;
+    private Integer state = 1;
 
     @NonNull
     @Column(nullable = false, updatable = false)
@@ -58,12 +58,12 @@ public abstract class BaseModel implements Serializable, Comparable {
     @Column()
     private LocalDateTime updateTime;
 
-    @Transient
     //分页起始页码
+    @Transient
     private Integer pageIndex;
 
-    @Transient
     //分页每页记录数
+    @Transient
     private Integer pageSize;
 
     @Override
