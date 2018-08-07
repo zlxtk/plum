@@ -1,5 +1,6 @@
 package com.zlxtk.boot.plum.security.config;
 
+import com.zlxtk.boot.plum.security.handler.FailureLoginHandler;
 import com.zlxtk.boot.plum.security.handler.SuccessLoginHandler;
 import com.zlxtk.boot.plum.security.handler.SuccessLogoutHandler;
 import com.zlxtk.boot.plum.security.service.ISysUserService;
@@ -31,9 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private ISysUserService userService;
 
     @Autowired
-    SuccessLoginHandler successLoginHandler;
+    private SuccessLoginHandler successLoginHandler;
+
     @Autowired
-    SuccessLogoutHandler successLogoutHandler;
+    private FailureLoginHandler failureLoginHandler;
+
+    @Autowired
+    private SuccessLogoutHandler successLogoutHandler;
 
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -75,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/error", "/logout").permitAll()  // 都可以访问
                 .antMatchers("/h2-console/**").permitAll()  // 都可以访问
                 .antMatchers("/", "/index").access("hasRole('USER')")
-                .and().formLogin().loginPage("/login").successHandler(successLoginHandler)
+                .and().formLogin().loginPage("/login").successHandler(successLoginHandler).failureHandler(failureLoginHandler)
                 .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()
                 //开启cookie保存用户数据

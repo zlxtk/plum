@@ -2,14 +2,10 @@
 package com.zlxtk.boot.plum.security.handler;
 
 import com.zlxtk.boot.plum.base.constants.ApplicationConstants;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -28,11 +24,6 @@ import java.util.List;
 @NoArgsConstructor
 @Component
 public class SuccessLoginHandler implements AuthenticationSuccessHandler {
-
-
-    @Getter
-    @Setter
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
