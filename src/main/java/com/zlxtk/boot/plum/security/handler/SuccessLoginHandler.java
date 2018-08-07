@@ -1,13 +1,13 @@
 
 package com.zlxtk.boot.plum.security.handler;
 
+import com.zlxtk.boot.plum.base.constants.ApplicationConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -37,28 +37,16 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-
-        log.debug("Logged In User " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
-        //1. 默认的处理
-//        response.setStatus(HttpServletResponse.SC_OK);
-//        request.getRequestDispatcher(ApplicationConstants.HOME_PAGE).forward(request, response);
-
-        //2. 根据角色跳不同页面的处理
         String targetUrl = determineTargetUrl(authentication);
-        if (response.isCommitted()) {
-            log.debug("Can't redirect");
-            return;
-        }
-        redirectStrategy.sendRedirect(request, response, targetUrl);
-
+        response.setStatus(HttpServletResponse.SC_OK);
+        request.getRequestDispatcher(targetUrl).forward(request, response);
     }
 
     /**
      * 不同角色跳不同页面的处理
      */
     protected String determineTargetUrl(Authentication authentication) {
-        String url = "/";
+        String url = ApplicationConstants.HOME_PAGE;
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
