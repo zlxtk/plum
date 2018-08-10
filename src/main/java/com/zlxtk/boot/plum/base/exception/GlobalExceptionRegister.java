@@ -8,10 +8,11 @@ import com.google.common.collect.Maps;
 import com.zlxtk.boot.plum.base.constants.ErrorCodeConstants;
 import com.zlxtk.boot.plum.base.web.response.JsonResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 
-import java.nio.file.AccessDeniedException;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public final class GlobalExceptionRegister {
         errorMap.put(RuntimeException.class,
                 JsonResponse.builder().errcode(HttpStatus.INTERNAL_SERVER_ERROR.value()).status(HttpStatus.INTERNAL_SERVER_ERROR.value()).error(HttpStatus.INTERNAL_SERVER_ERROR.name())
                         .build());
-        errorMap.put(AccessDeniedException.class,
+        errorMap.put(org.springframework.security.access.AccessDeniedException.class,
                 JsonResponse.builder().errcode(HttpStatus.UNAUTHORIZED.value()).status(HttpStatus.UNAUTHORIZED.value()).error(HttpStatus.UNAUTHORIZED.name()).build());
         errorMap.put(AccessDeniedException.class,
                 JsonResponse.builder().errcode(HttpStatus.FORBIDDEN.value()).status(HttpStatus.FORBIDDEN.value()).error(HttpStatus.FORBIDDEN.name()).build());
@@ -39,14 +40,17 @@ public final class GlobalExceptionRegister {
                         .build());
 
         errorMap.put(MultipartException.class,
-                JsonResponse.builder().errcode(ErrorCodeConstants.ATTACHMENT_SIZE_EXCEEDS).status(HttpStatus.REQUEST_ENTITY_TOO_LARGE.value()).error("Attachment size exceeds the allowable limit!")
+                JsonResponse.builder().errcode(ErrorCodeConstants.ERRORCODE_ATTACHMENT_SIZE_EXCEEDS).status(HttpStatus.BAD_REQUEST.value()).error(HttpStatus.BAD_REQUEST.name()).message("Upload attachment failed-上传文件失败")
+                        .build());
+        errorMap.put(MaxUploadSizeExceededException.class,
+                JsonResponse.builder().errcode(ErrorCodeConstants.ERRORCODE_ATTACHMENT_SIZE_EXCEEDS).status(HttpStatus.REQUEST_ENTITY_TOO_LARGE.value()).error(HttpStatus.REQUEST_ENTITY_TOO_LARGE.name()).message("Attachment size exceeds-文件过大")
                         .build());
 
         errorMap.put(InsertExistObjectException.class,
-                JsonResponse.builder().errcode(HttpStatus.INTERNAL_SERVER_ERROR.value()).status(HttpStatus.INTERNAL_SERVER_ERROR.value()).error("Cant not insert an exist object.")
+                JsonResponse.builder().errcode(HttpStatus.INTERNAL_SERVER_ERROR.value()).status(HttpStatus.INTERNAL_SERVER_ERROR.value()).error(HttpStatus.INTERNAL_SERVER_ERROR.name()).message("不能写入有ID的对象")
                         .build());
         errorMap.put(UpdateNotExistObjectException.class,
-                JsonResponse.builder().errcode(HttpStatus.INTERNAL_SERVER_ERROR.value()).status(HttpStatus.INTERNAL_SERVER_ERROR.value()).error("Cant not update a already exist object.")
+                JsonResponse.builder().errcode(HttpStatus.INTERNAL_SERVER_ERROR.value()).status(HttpStatus.INTERNAL_SERVER_ERROR.value()).error(HttpStatus.INTERNAL_SERVER_ERROR.name()).message("不能更新不存在的对象")
                         .build());
 
     }

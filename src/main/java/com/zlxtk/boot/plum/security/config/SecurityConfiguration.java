@@ -1,14 +1,13 @@
 package com.zlxtk.boot.plum.security.config;
 
+import com.zlxtk.boot.plum.base.constants.ApplicationConstants;
 import com.zlxtk.boot.plum.security.handler.FailureLoginHandler;
 import com.zlxtk.boot.plum.security.handler.SuccessLoginHandler;
 import com.zlxtk.boot.plum.security.handler.SuccessLogoutHandler;
 import com.zlxtk.boot.plum.security.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -47,13 +46,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * @return 封装身份认证提供者
      */
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userService);  //自定义的用户和角色数据提供者
-//        authenticationProvider.setPasswordEncoder(passwordEncoder()); //设置密码加密对象
-        return authenticationProvider;
-    }
+//    @Bean
+//    public DaoAuthenticationProvider authenticationProvider() {
+//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//        authenticationProvider.setUserDetailsService(userService);  //自定义的用户和角色数据提供者
+////        authenticationProvider.setPasswordEncoder(passwordEncoder()); //设置密码加密对象
+//        return authenticationProvider;
+//    }
 
     /**
      * @param auth
@@ -76,15 +75,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
-                .antMatchers("/css/**", "/js/**", "/html/**").permitAll()
-                .antMatchers("/error", "/logout").permitAll()  // 都可以访问
+//                .antMatchers("/css/**", "/js/**", "/html/**", "/font-awesome/**", "/Ionicons/**", "/dist/**", "/bootstrap/**", "/plugins/**", "/**/*.js", "/**/*.css").permitAll()
+                .antMatchers("/error","/login", "/logout").permitAll()  // 都可以访问
                 .antMatchers("/h2-console/**").permitAll()  // 都可以访问
                 .antMatchers("/", "/index").access("hasRole('USER')")
-                .and().formLogin().loginPage("/login").successHandler(successLoginHandler).failureHandler(failureLoginHandler)
+                .and().formLogin().loginPage("/login").failureUrl(ApplicationConstants.LOGIN_ERROR_PAGE).successHandler(successLoginHandler).failureHandler(failureLoginHandler)
                 .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()
                 //开启cookie保存用户数据
-                .rememberMe().tokenValiditySeconds(60 * 60 * 24 * 7).key("plumCKRM")
+                .rememberMe().rememberMeParameter("rememberMe").tokenValiditySeconds(60 * 60 * 24 * 7).key("plumCKRM")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessHandler(successLogoutHandler).permitAll()
                 .and().csrf().disable();
@@ -122,6 +121,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+//"/css/**", "/js/**", "/html/**", "/font-awesome/**", "/Ionicons/**", "/dist/**", "/bootstrap/**", "/plugins/**", "/**/*.js", "/**/*.css"
+        web.ignoring().antMatchers("/font-awesome/**",
+                "/html/**",
+                "/Ionicons/**",
+                "/bootstrap/**",
+                "/**/*.css",
+                "/**/*.js",
+                "/**/*.ttf",
+                "/**/*.woff",
+                "/**/*.woff2",
+                "/**/*.png",
+                "/**/*.jpg",
+                "/**/*.eot",
+                "/**/*.svg"
+        );
 
     }
 }
