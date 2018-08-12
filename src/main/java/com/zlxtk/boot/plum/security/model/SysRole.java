@@ -12,7 +12,7 @@ import java.util.Set;
  * @Date: 2018/7/31 12:29
  */
 @Data
-@EqualsAndHashCode(callSuper=true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
+@EqualsAndHashCode(callSuper = true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,16 +25,12 @@ public class SysRole extends BaseModel {
     private Long id;
 
     @NonNull
-    @Column(nullable = false,length = 50)
-    private String roleCode;//角色编码
+    @Column(nullable = false, length = 50)
+    private String roleCode; //角色编码
 
     @NonNull
-    @Column(nullable = false,length = 50)
-    private String roleName;//角色名
-
-    @Column(nullable = false)
-    @Builder.Default
-    private Integer displayOrder=0;
+    @Column(nullable = false, length = 50)
+    private String roleName; //角色名
 
     @Transient
     private Set<SysUser> users;

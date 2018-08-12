@@ -75,10 +75,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
-//                .antMatchers("/css/**", "/js/**", "/html/**", "/font-awesome/**", "/Ionicons/**", "/dist/**", "/bootstrap/**", "/plugins/**", "/**/*.js", "/**/*.css").permitAll()
-                .antMatchers("/error","/login", "/logout").permitAll()  // 都可以访问
+//                .antMatchers("/css/**", "/js/**", "/html/**", "/font-awesome/**", "/Ionicons/**", "/dist/**", "/bootstrap/**", "/plugins/**").permitAll()
+                .antMatchers("/error", "/logout").permitAll()  // 都可以访问
                 .antMatchers("/h2-console/**").permitAll()  // 都可以访问
                 .antMatchers("/", "/index").access("hasRole('USER')")
+                .antMatchers( "/admin").access("hasRole('ADMIN')")
                 .and().formLogin().loginPage("/login").failureUrl(ApplicationConstants.LOGIN_ERROR_PAGE).successHandler(successLoginHandler).failureHandler(failureLoginHandler)
                 .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()

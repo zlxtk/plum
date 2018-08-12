@@ -58,6 +58,9 @@ public abstract class BaseModel implements Serializable, Comparable {
     @Column()
     private LocalDateTime updateTime;
 
+    @Column(nullable = false)
+    private Integer displayOrder;
+
     //分页起始页码
     @Transient
     private Integer pageIndex;

@@ -14,7 +14,6 @@ public class LoginController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        model.addAttribute("message", "hahahaaaaaa");
         return "index";
     }
 
@@ -25,13 +24,11 @@ public class LoginController {
 
     @RequestMapping("/index")
     public String index(Model model) {
-        model.addAttribute("message", "hahaha");
         return "index";
     }
 
     @RequestMapping("/admin")
     public String admin(Model model) {
-        model.addAttribute("message", "admin");
-        return "admin";
+        return "admin/admin";
     }
 }

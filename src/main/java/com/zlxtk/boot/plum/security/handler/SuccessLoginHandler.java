@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -23,36 +23,37 @@ import java.util.List;
 @Slf4j
 @NoArgsConstructor
 @Component
-public class SuccessLoginHandler implements AuthenticationSuccessHandler {
+public class SuccessLoginHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        String targetUrl = determineTargetUrl(authentication);
+        String targetUrl = determineTargetUrl(request,authentication);
         response.setStatus(HttpServletResponse.SC_OK);
-        request.getRequestDispatcher(targetUrl).forward(request, response);
+//        request.getRequestDispatcher(targetUrl).forward(request, response);
+        response.sendRedirect(targetUrl);
     }
 
     /**
      * 不同角色跳不同页面的处理
      */
-    protected String determineTargetUrl(Authentication authentication) {
+    protected String determineTargetUrl(HttpServletRequest request,Authentication authentication) {
         String url = ApplicationConstants.HOME_PAGE;
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        List<String> roles = new ArrayList<String>();
+        List<String> authorityList = new ArrayList<String>();
 
         for (GrantedAuthority a : authorities) {
-            roles.add(a.getAuthority());
+            authorityList.add(a.getAuthority());
         }
 
-        if (roles.contains("ROLE_USER")) {
-            url = "/index";
+        if (authorityList.contains("ROLE_USER")) {
+            url = "index";
         }
 
-        if (roles.contains("ROLE_ADMIN")) {
-            url = "/admin";
+        if (authorityList.contains("ROLE_ADMIN")) {
+            url = "admin";
         }
 
         return url;
