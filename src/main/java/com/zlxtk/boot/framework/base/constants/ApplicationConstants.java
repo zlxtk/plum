@@ -68,4 +68,7 @@ public class ApplicationConstants {
     public final static String  MASTER_HOST = "master_ip";
     public final static String  MASTER_PORT = "master_port";
     public final static String  MASTER_LOCK = "master_lock";
+
+    public final static Integer  MODEL_STATE_ENABLE = 1;//正常
+    public final static Integer  MODEL_STATE_UNENABLE = 0;//不可用
 }

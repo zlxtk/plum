@@ -34,7 +34,7 @@ public abstract class BaseModel implements Serializable, Comparable {
 
     @NonNull
     @Column(nullable = false)
-    private Integer state = 1;
+    private Integer state = ApplicationConstants.MODEL_STATE_ENABLE;
 
     @NonNull
     @Column(nullable = false, updatable = false)

@@ -1,8 +1,8 @@
 package com.zlxtk.boot.framework.sys.service;
 
-import com.simbest.boot.base.service.ILogicService;
-import com.simbest.boot.sys.model.SysFile;
-import com.simbest.boot.sys.model.UploadFileResponse;
+import com.zlxtk.boot.framework.base.service.IBaseService;
+import com.zlxtk.boot.framework.sys.model.SysFile;
+import com.zlxtk.boot.framework.sys.model.UploadFileResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -28,7 +28,7 @@ public interface ISysFileService extends IBaseService<SysFile, String> {
 
     /**
      * 上传并保存多个文件
-     * @param multipartFile 上传文件
+     * @param multipartFiles 上传文件
      * @param pmInsType 流程类型
      * @param pmInsId 流程ID
      * @param pmInsTypePart 流程区块
