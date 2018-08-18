@@ -4,9 +4,9 @@
 package com.zlxtk.boot.framework.sys.web;
 
 import com.google.common.collect.Maps;
-import com.simbest.boot.base.web.response.JsonResponse;
-import com.simbest.boot.constants.ApplicationConstants;
-import com.simbest.boot.util.redis.RedisUtil;
+import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.base.web.response.JsonResponse;
+import com.zlxtk.boot.framework.util.redis.RedisUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;

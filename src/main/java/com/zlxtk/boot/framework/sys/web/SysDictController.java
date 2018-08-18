@@ -3,10 +3,11 @@
  */
 package com.zlxtk.boot.framework.sys.web;
 
-import com.simbest.boot.base.web.controller.LogicController;
-import com.simbest.boot.base.web.response.JsonResponse;
-import com.simbest.boot.sys.model.SysDict;
-import com.simbest.boot.sys.service.ISysDictService;
+import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.base.web.controller.BaseController;
+import com.zlxtk.boot.framework.base.web.response.JsonResponse;
+import com.zlxtk.boot.framework.sys.model.SysDict;
+import com.zlxtk.boot.framework.sys.service.ISysDictService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sys/dict")
-public class SysDictController extends LogicController<SysDict, String> {
+public class SysDictController extends BaseController<SysDict, String> {
 
     private ISysDictService sysDictService;
 
@@ -101,7 +102,14 @@ public class SysDictController extends LogicController<SysDict, String> {
             @ApiImplicitParam(name = "enabled", value = "是否可用", required = true, dataType = "Boolean", paramType = "query")
     })
     public JsonResponse updateEnable(@RequestParam(required = false) String id, @RequestParam(required = false) Boolean enabled) {
-        return  super.updateEnable( id,enabled );
+        SysDict dict=new SysDict();
+        dict.setId(id);
+        if(enabled){
+            dict.setState(ApplicationConstants.MODEL_STATE_ENABLE);
+        }else{
+            dict.setState(ApplicationConstants.MODEL_STATE_UNENABLE);
+        }
+        return  super.update(dict);
     }
 
     //批量修改可见
@@ -157,7 +165,7 @@ public class SysDictController extends LogicController<SysDict, String> {
      */
     @PostMapping(value = "/findDictTree")
     public JsonResponse findDictTree() {
-        List<SysDict> roots = sysDictService.findByAll();
+        List<SysDict> roots = sysDictService.findAll();
         return JsonResponse.success( roots);
     }
 
@@ -176,7 +184,7 @@ public class SysDictController extends LogicController<SysDict, String> {
         }
         dict.setParentId(dict.getId());
         dict.setId(null);
-        SysDict newDict = sysDictService.save(dict);
+        SysDict newDict = sysDictService.insert(dict);
         return JsonResponse.defaultSuccessResponse();
     }
 

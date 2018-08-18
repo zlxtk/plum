@@ -3,16 +3,16 @@
  */
 package com.zlxtk.boot.framework.sys.web;
 
-import com.simbest.boot.base.web.controller.LogicController;
-import com.simbest.boot.base.web.response.JsonResponse;
-import com.simbest.boot.config.AppConfig;
-import com.simbest.boot.sys.model.SysFile;
-import com.simbest.boot.sys.model.UploadFileResponse;
-import com.simbest.boot.sys.service.ISysFileService;
-import com.simbest.boot.util.AppFileUtil;
-import com.simbest.boot.util.encrypt.UrlEncryptor;
-import com.simbest.boot.util.encrypt.WebOffice3Des;
-import com.simbest.boot.util.json.JacksonUtils;
+import com.zlxtk.boot.framework.base.web.controller.BaseController;
+import com.zlxtk.boot.framework.base.web.response.JsonResponse;
+import com.zlxtk.boot.framework.config.AppConfig;
+import com.zlxtk.boot.framework.sys.model.SysFile;
+import com.zlxtk.boot.framework.sys.model.UploadFileResponse;
+import com.zlxtk.boot.framework.sys.service.ISysFileService;
+import com.zlxtk.boot.framework.util.AppFileUtil;
+import com.zlxtk.boot.framework.util.encrypt.UrlEncryptor;
+import com.zlxtk.boot.framework.util.encrypt.WebOffice3Des;
+import com.zlxtk.boot.framework.util.json.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -43,7 +43,7 @@ import java.util.Map;
  */
 @Slf4j
 @Controller
-public class SysFileController extends LogicController<SysFile, String> {
+public class SysFileController extends BaseController<SysFile, String> {
 
     public final static String UPLOAD_PROCESS_FILES_URL = "/sys/file/uploadProcessFiles";
     public final static String UPLOAD_PROCESS_FILES_URL_SSO = "/sys/file/uploadProcessFiles/sso";
@@ -70,50 +70,6 @@ public class SysFileController extends LogicController<SysFile, String> {
         this.fileService = fileService;
     }
 //
-//    /**
-//     * 注释掉的方法在IE8不支持
-//     * @param uploadfile
-//     * @return
-//     */
-//    @ApiOperation(value = "上传单个流程附件", notes = "会保存到数据库SYS_FILE")
-//    @PostMapping(value = {UPLOAD_PROCESS_FILE_URL, UPLOAD_PROCESS_FILE_URL_SSO})
-//    public void uploadProcessFile(@RequestParam("file") MultipartFile uploadfile,
-//                                                    @PathVariable("pmInsType") String pmInsType,
-//                                                    @RequestParam(value = "pmInsId", required = false) String pmInsId, //起草阶段上传文件，可不填写业务单据ID
-//                                                    @PathVariable("pmInsTypePart") String pmInsTypePart, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        this.uploadProcessFiles(new MultipartFile[]{uploadfile}, pmInsType, pmInsId, pmInsTypePart,request, response);
-//    }
-//
-//    /**
-//     * 注释掉的方法在IE8不支持
-//     * @param uploadfiles
-//     * @return
-//     */
-//    @ApiOperation(value = "上传多个流程附件", notes = "会保存到数据库SYS_FILE")
-//    @PostMapping(value = {UPLOAD_PROCESS_FILES_URL, UPLOAD_PROCESS_FILES_URL_SSO})
-//    public void uploadProcessFiles(@RequestParam("files") MultipartFile[] uploadfiles,
-//                                           @PathVariable("pmInsType") String pmInsType,
-//                                           @RequestParam(value = "pmInsId", required = false) String pmInsId, //起草阶段上传文件，可不填写业务单据ID
-//                                           @PathVariable("pmInsTypePart") String pmInsTypePart, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        response.setContentType("text/html; charset=UTF-8");
-//        response.setCharacterEncoding("UTF-8");
-//        PrintWriter out = response.getWriter();
-//
-//        for (MultipartFile uploadFile : uploadfiles) {
-//            if (!AppFileUtil.validateUploadFileType(uploadFile.getOriginalFilename())) {
-//                JsonResponse jsonResponse = JsonResponse.fail("不允许上传的文件类型");
-//                String result = "<script type=\"text/javascript\">parent.result="+JacksonUtils.obj2json(jsonResponse)+"</script>";
-//                out.println(result);
-//            }
-//        }
-//        List<SysFile> sysFiles = fileService.uploadProcessFiles(uploadfiles, pmInsType, pmInsId, pmInsTypePart);
-//        UploadFileResponse uploadFileResponse = new UploadFileResponse();
-//        uploadFileResponse.setSysFiles(sysFiles);
-//        JsonResponse jsonResponse = JsonResponse.success(uploadFileResponse);
-//        String result = "<script type=\"text/javascript\">parent.result="+JacksonUtils.obj2json(jsonResponse)+"</script>";
-//        out.println(result);
-//        out.close();
-//    }
 
     /**
      * 上传文件，支持IE8及以上版本浏览器，支持同时上传多个附件
@@ -134,7 +90,7 @@ public class SysFileController extends LogicController<SysFile, String> {
         UploadFileResponse uploadFileResponse = new UploadFileResponse();
         uploadFileResponse.setSysFiles(sysFiles);
         JsonResponse jsonResponse = JsonResponse.success(uploadFileResponse);
-        String result = "<script type=\"text/javascript\">parent.result="+JacksonUtils.obj2json(jsonResponse)+"</script>";
+        String result = "<script type=\"text/javascript\">parent.result="+ JacksonUtils.obj2json(jsonResponse)+"</script>";
         out.println(result);
         out.close();
     }

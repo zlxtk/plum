@@ -4,7 +4,7 @@
 package com.zlxtk.boot.framework.util.encrypt;
 
 
-import com.simbest.boot.base.exception.Exceptions;
+import com.zlxtk.boot.framework.base.exception.Exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

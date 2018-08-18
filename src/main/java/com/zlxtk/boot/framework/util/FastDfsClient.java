@@ -3,8 +3,8 @@
  */
 package com.zlxtk.boot.framework.util;
 
-import com.simbest.boot.base.exception.Exceptions;
-import com.simbest.boot.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.base.exception.Exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.csource.common.MyException;

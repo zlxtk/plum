@@ -3,8 +3,9 @@
  */
 package com.zlxtk.boot.framework.util.captcha;
 
-import com.simbest.boot.constants.ApplicationConstants;
-import com.simbest.boot.util.AppSessionUtil;
+
+import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.util.AppSessionUtil;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;

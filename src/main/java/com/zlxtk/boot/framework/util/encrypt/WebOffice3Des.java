@@ -3,8 +3,8 @@
  */
 package com.zlxtk.boot.framework.util.encrypt;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -46,9 +46,10 @@ public class WebOffice3Des {
         key = keyFactory.generateSecret(keySpec);// 得到密钥对象
     }
     /**
+     * 加密
      * @param data
      * @return
-     * @throws 加密
+     * @throws
      */
     public static String encode(String data) throws Exception {
         // 得到加密对象Cipher
@@ -59,9 +60,10 @@ public class WebOffice3Des {
         return Base64.encodeBase64String(pasByte).replaceAll("\\+", "_").replaceAll("\\/", "@");
     }
     /**
+     * 解密
      * @param data
      * @return
-     * @throws 解密
+     * @throws
      */
     public static String decode(String data) throws Exception {
         Cipher deCipher = Cipher.getInstance("DES/CBC/PKCS5Padding");

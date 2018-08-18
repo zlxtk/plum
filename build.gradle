@@ -30,22 +30,74 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 
-    //https://github.com/wenhao/jpa-spec
-    //https://www.w3cschool.cn/jpaspec/glr31s3w.html
-    compile 'com.github.wenhao:jpa-spec:3.2.3'
+    // https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.io
+    compile group: 'org.apache.directory.studio', name: 'org.apache.commons.io', version: '2.4'
 
     // https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
     compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
 
-    // https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.io
-    compile group: 'org.apache.directory.studio', name: 'org.apache.commons.io', version: '2.4'
 
+    //jpa查询
+    //https://github.com/wenhao/jpa-spec
+    //https://www.w3cschool.cn/jpaspec/glr31s3w.html
+    compile 'com.github.wenhao:jpa-spec:3.2.3'
 
     // https://mvnrepository.com/artifact/com.google.guava/guava
     compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
 
+    //json
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+
+    //时间工具
+    // https://mvnrepository.com/artifact/joda-time/joda-time
+    compile group: 'joda-time', name: 'joda-time', version: '2.10'
+
+    //swagger
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
+    //fastdfs
+    // https://mvnrepository.com/artifact/cn.bestwu/fastdfs-client-java
+    compile group: 'cn.bestwu', name: 'fastdfs-client-java', version: '1.27'
+    // https://mvnrepository.com/artifact/com.mzlion/easy-okhttp
+    compile group: 'com.mzlion', name: 'easy-okhttp', version: '1.1.4'
+
+    //二维码
+    // https://mvnrepository.com/artifact/com.google.zxing/core
+    compile group: 'com.google.zxing', name: 'core', version: '3.1.0'
+    // https://mvnrepository.com/artifact/com.google.zxing/javase
+    compile group: 'com.google.zxing', name: 'javase', version: '3.1.0'
+
+    //office
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
+    compile group: 'org.apache.poi', name: 'poi', version: '3.10-FINAL'
+    // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j
+    compile group: 'net.lingala.zip4j', name: 'zip4j', version: '1.3.2'
+    // https://mvnrepository.com/artifact/com.github.junrar/junrar
+    compile group: 'com.github.junrar', name: 'junrar', version: '0.7'
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.3'
+    // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
+    compile group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.3'
+    // https://mvnrepository.com/artifact/com.itextpdf/itext-asian
+    compile group: 'com.itextpdf', name: 'itext-asian', version: '5.2.0'
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.9'
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas
+    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.9'
+    // https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans
+    compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '2.6.0'
+
+    //汉字转拼音
+    // https://mvnrepository.com/artifact/com.github.stuxuhai/jpinyin
+    compile group: 'com.github.stuxuhai', name: 'jpinyin', version: '1.1.8'
+
+
+
+
 
 
     // spring

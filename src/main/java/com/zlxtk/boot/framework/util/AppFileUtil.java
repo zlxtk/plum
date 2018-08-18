@@ -11,12 +11,11 @@ import com.zlxtk.boot.framework.config.AppConfig;
 import com.zlxtk.boot.framework.sys.model.SysFile;
 import com.zlxtk.boot.framework.sys.web.SysFileController;
 import com.zlxtk.boot.framework.util.encrypt.UrlEncryptor;
-import freemarker.template.utility.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -89,7 +88,6 @@ public class AppFileUtil {
     /**
      * 根据路径返回文件后缀，如：http://aaa/bbb.jpg C:/aaa/abc.jpg 返回jpg
      *
-     * @param fileName hello.doc
      * @return doc
      */
     public static String getFileSuffix(String pathToName) {
@@ -111,7 +109,6 @@ public class AppFileUtil {
     /**
      * 上传单个文件
      *
-     * @param file file
      * @return SysFile
      * @throws IOException
      */
@@ -123,7 +120,6 @@ public class AppFileUtil {
     /**
      * 上传多个文件
      *
-     * @param files files
      * @return UploadFileModel
      * @throws IOException
      */

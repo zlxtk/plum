@@ -4,8 +4,8 @@
 package com.zlxtk.boot.framework.util.office;
 
 import com.google.common.collect.Lists;
-import com.simbest.boot.base.annotations.ExcelVOAttribute;
-import com.simbest.boot.base.exception.Exceptions;
+import com.zlxtk.boot.framework.base.constants.ExcelVOAttribute;
+import com.zlxtk.boot.framework.base.exception.Exceptions;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.CellRangeAddressList;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -309,7 +309,7 @@ public class ExcelUtil<T> {
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
-     * @param sheetName
+     * @param sheetNames
      *            工作表的名称
      * @param output
      *            java输出流
@@ -525,7 +525,6 @@ public class ExcelUtil<T> {
     /**
      * 得到实体类所有通过注解映射了数据表的字段
      *
-     * @param map
      * @return
      */
     private List<Field> getMappedFiled(@SuppressWarnings("rawtypes") Class clazz, List<Field> fields, String isTagValue) {

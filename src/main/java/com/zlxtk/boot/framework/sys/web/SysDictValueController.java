@@ -3,11 +3,12 @@
  */
 package com.zlxtk.boot.framework.sys.web;
 
-import com.simbest.boot.base.web.controller.LogicController;
-import com.simbest.boot.base.web.response.JsonResponse;
-import com.simbest.boot.sys.model.SysDictValue;
-import com.simbest.boot.sys.service.ISysDictService;
-import com.simbest.boot.sys.service.ISysDictValueService;
+import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.base.web.controller.BaseController;
+import com.zlxtk.boot.framework.base.web.response.JsonResponse;
+import com.zlxtk.boot.framework.sys.model.SysDictValue;
+import com.zlxtk.boot.framework.sys.service.ISysDictService;
+import com.zlxtk.boot.framework.sys.service.ISysDictValueService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/sys/dictValue")
-public class SysDictValueController extends LogicController<SysDictValue,String>{
+public class SysDictValueController extends BaseController<SysDictValue,String> {
 
     private ISysDictValueService sysDictValueService;
 
@@ -102,7 +103,7 @@ public class SysDictValueController extends LogicController<SysDictValue,String>
             @ApiImplicitParam(name = "enabled", value = "是否可用", required = true, dataType = "Boolean", paramType = "query")
     })
     public JsonResponse updateEnable(@RequestParam(required = false) String id, @RequestParam(required = false) Boolean enabled) {
-        return  super.updateEnable( id,enabled );
+        return  JsonResponse.success(sysDictValueService.updateEnable(enabled,id));
     }
 
     //批量修改可见
@@ -149,45 +150,7 @@ public class SysDictValueController extends LogicController<SysDictValue,String>
         return super.findAll( page,size,direction, properties,sysDictValue);
     }
 
-    /*@PreAuthorize("hasAuthority('ROLE_ADMIN')")  // 指定角色权限才能操作方法
-    @RequestMapping(value = "/list")
-    public ModelAndView list(@RequestParam(defaultValue = "1") int page,
-                             @RequestParam(defaultValue = "10") int size, //
-                             @RequestParam(required = false, defaultValue = "") String searchCode,
-                             @RequestParam Integer id) {
 
-        SysDict dict = dictService.findById(id);
-        if (dict == null) {
-            return new ModelAndView("error", "message", "do not find dict by id:" + id);
-        }
-
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("searchCode", searchCode);
-
-        Condition c = new Condition();
-        c.eq("dictId", id);
-        c.eq("removed", false);
-        c.like("name", "%" + searchCode + "%");
-
-        // 生成排序规则
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
-        PageRequest pageable = PageRequest.of(page - 1, size, sort);
-
-        Specification<SysDictValue> s = sysDictValueService.getSpecification(c);
-        Page allData = sysDictValueService.findAll(s, pageable);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("totalSize", allData.getTotalElements());
-        map.put("totalPage", allData.getTotalPages());
-        map.put("dataList", allData.getContent());
-        map.put("dict", dict);
-        map.put("size", allData.getSize());
-        map.put("page", page);
-        map.put("title", "数据字典值");
-        map.put("searchD", dataMap);
-
-        return new ModelAndView("sys/sysdict/dictionaryList", "dictModel", map);
-    }*/
 
     /**
      * 新增子字典值
@@ -203,76 +166,8 @@ public class SysDictValueController extends LogicController<SysDictValue,String>
         }
         dictValue.setParentId(dictValue.getId());
         dictValue.setId(null);
-        SysDictValue newSysDictValue = sysDictValueService.save(dictValue);
+        SysDictValue newSysDictValue = sysDictValueService.insert(dictValue);
         return JsonResponse.defaultSuccessResponse();
-    }
-
-
-   /* @PreAuthorize("hasAuthority('ROLE_USER')")  // 指定角色权限才能操作方法
-    @RequestMapping(value = "/json/listByDictId", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public JsonResponse listJson(@RequestParam(required = false, defaultValue = "1") int page, //
-                                 @RequestParam(required = false, defaultValue = "10") int size, //
-                                 @RequestParam(required = false, defaultValue = "-1") int dictId, //
-                                 @RequestParam(required = false, defaultValue = "") String name) {
-
-        // 获取查询条件
-        Condition condition = new Condition();
-        condition.eq("enabled", true);
-        condition.eq("removed", false);
-        condition.eq("dictId", dictId);
-        condition.like("name", "%" + name + "%");
-
-        // 生成排序规则
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
-        Pageable pageable = sysDictValueService.getPageable(page, size, "ASC", "id");
-
-        Specification<SysDictValue> s = sysDictValueService.getSpecification(condition);
-
-        // 获取查询结果
-        Page pages = sysDictValueService.findAll(s, pageable);
-
-        // 构成返回信息
-        Map<String, Object> searchD = new HashMap<>();
-        searchD.put("dictId", dictId);
-        searchD.put("name", name);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("totalSize", pages.getTotalElements());
-        map.put("totalPage", pages.getTotalPages());
-        map.put("list", pages.getContent());
-        map.put("size", pages.getSize());
-        map.put("page", page);
-        map.put("searchD", searchD);
-
-        JsonResponse res = JsonResponse.builder() //
-                .errcode(JsonResponse.SUCCESS_CODE) //
-                .message("查询成功！") //
-                .build();
-
-        res.setData(map);
-        return res;
-    }*/
-
-    /**
-     * 根据字典类型以及上级数据字典值id查询数据字典中相应值的name以及value的值
-     * @param sysDictValue
-     * @return
-     */
-    @ApiOperation (value = "根据字典类型以及上级数据字典值id查询数据字典中相应值的name以及value的值", notes = "根据字典类型以及上级数据字典值id查询数据字典中相应值的name以及value的值")
-    @PostMapping(value = {"/findDictValue", "/findDictValue/sso"})
-    public JsonResponse findDictValue(@RequestBody(required = false) SysDictValue sysDictValue){
-        return JsonResponse.success(sysDictValueService.findDictValue(sysDictValue));
-    }
-
-    /**
-     *查看数据字典的所有值
-     * @return
-     */
-    @ApiOperation(value = "查看数据字典的所有值", notes = "查看数据字典的所有值")
-    @PostMapping(value = {"/findAllDictValue", "/findAllDictValue/sso"})
-    public JsonResponse findAllDictValue(){
-        return JsonResponse.success(sysDictValueService.findAllDictValue());
     }
 
 }

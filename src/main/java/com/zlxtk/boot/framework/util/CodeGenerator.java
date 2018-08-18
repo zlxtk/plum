@@ -1,7 +1,7 @@
 package com.zlxtk.boot.framework.util;
 
 import com.google.common.collect.Maps;
-import com.simbest.boot.constants.ApplicationConstants;
+import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
 
 import java.util.Map;
 import java.util.Random;
