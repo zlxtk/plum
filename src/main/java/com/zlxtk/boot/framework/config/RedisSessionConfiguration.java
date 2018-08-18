@@ -1,10 +1,13 @@
 
 package com.zlxtk.boot.framework.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
@@ -16,7 +19,10 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
  * 时间: 2018/3/7  14:39
  *
  */
+@Slf4j
 @Configuration
+@EnableRedisHttpSession
+@EnableCaching
 public class RedisSessionConfiguration {
 
     @Autowired

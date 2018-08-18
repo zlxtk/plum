@@ -6,6 +6,7 @@ import com.zlxtk.boot.framework.security.handler.SuccessLoginHandler;
 import com.zlxtk.boot.framework.security.handler.SuccessLogoutHandler;
 import com.zlxtk.boot.framework.security.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 /**
  * @Description:
@@ -38,6 +44,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SuccessLogoutHandler successLogoutHandler;
+
+    @Autowired
+    private FindByIndexNameSessionRepository<Session> sessionRepository;
 
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -68,45 +77,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/error", "/logout").permitAll()  // 都可以访问
                 .antMatchers("/h2-console/**").permitAll()  // 都可以访问
                 .antMatchers("/", "/index").access("hasRole('USER')")
-                .antMatchers( "/admin").access("hasRole('ADMIN')")
+                .antMatchers("/admin").access("hasRole('ADMIN')")
                 .and().formLogin().loginPage("/login").failureUrl(ApplicationConstants.LOGIN_ERROR_PAGE).successHandler(successLoginHandler).failureHandler(failureLoginHandler)
                 .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()
                 //开启cookie保存用户数据
-                .rememberMe().rememberMeParameter("rememberMe").tokenValiditySeconds(60 * 60 * 24 * 7).key("plumCKRM")
+                .rememberMe().rememberMeParameter("rememberMe").key("plumCKRM").rememberMeServices(rememberMeServices())
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessHandler(successLogoutHandler).permitAll()
-                .and().csrf().disable();
-        ;
 
-//        http
-//                .addFilterBefore(captchaUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(uumsAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterAt(rsaAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterAfter(ssoAuthenticationFilter(), UumsAuthenticationFilter.class)
-//                .authorizeRequests()
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-//                .antMatchers("/error", "/login", "/logout").permitAll()  // 都可以访问
-//                .antMatchers("/h2-console/**", "/html/**").permitAll()  // 都可以访问
-//                .antMatchers("/httpauth/**", "/action/anonymous/**", "/anonymous/**", "/services/**").permitAll()  // 都可以访问
-//                .antMatchers("/action/**").hasRole("USER")   // 需要相应的角色才能访问
-//                .antMatchers("/sys/admin/**").hasAnyRole("ADMIN", "SUPERVISOR")   // 需要相应的角色才能访问
-//                .anyRequest().authenticated()
-//                .and().formLogin().successHandler(successLoginHandler) // 成功登入后，重定向到首页
-//                .loginPage(ApplicationConstants.LOGIN_PAGE).failureUrl(ApplicationConstants.LOGIN_ERROR_PAGE) // 自定义登录界面
-//                .failureHandler(failedLoginHandler) //记录登录错误日志，并自定义登录错误提示信息
-//                .and().logout().logoutSuccessHandler(successLogoutHandler) // 成功登出后，重定向到登陆页
-//                .and().exceptionHandling().accessDeniedPage("/403")// 处理异常，拒绝访问就重定向到 403 页面
-//                .and().headers().frameOptions().sameOrigin()
-//                .and().csrf().disable()
-////                .and().csrf().requireCsrfProtectionMatcher(swagger2CsrfProtection)
-////                .and()
-////                .sessionManagement().invalidSessionUrl(ApplicationConstants.LOGIN_PAGE).maximumSessions(1)
-////                .sessionRegistry(sessionRegistry).expiredUrl(ApplicationConstants.LOGIN_PAGE);
-//                .sessionManagement().maximumSessions(1)
-//                .maxSessionsPreventsLogin(true)
-//                .sessionRegistry(sessionRegistry());
-//        //.expiredUrl(ApplicationConstants.LOGIN_PAGE);
+                .and().csrf().disable()
+                .sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
     }
 
     @Override
@@ -127,5 +108,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/**/*.svg"
         );
 
+    }
+
+    @Bean
+    RememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
+    }
+
+    @Bean
+    SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
     }
 }
