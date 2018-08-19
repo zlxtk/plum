@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class SysDictValueService extends BaseService<SysDictValue,String> implements ISysDictValueService {
+public class SysDictValueService extends BaseService<SysDictValue,Long> implements ISysDictValueService {
 
     private SysDictValueRepository dictValueRepository;
 
@@ -24,7 +24,7 @@ public class SysDictValueService extends BaseService<SysDictValue,String> implem
     }
 
     @Override
-    public int updateEnable(boolean enabled, String dictValueId) {
+    public int updateEnable(boolean enabled, Long dictValueId) {
         SysDictValue val = findById(dictValueId);
         if (val == null) {
             return 0;
@@ -43,12 +43,12 @@ public class SysDictValueService extends BaseService<SysDictValue,String> implem
     }
 
     @Override
-    public List<SysDictValue> findByParentId(String parentId) {
+    public List<SysDictValue> findByParentId(Long parentId) {
         return dictValueRepository.findByParentId(parentId);
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         SysDictValue dictValue = findById(id);
         insert(dictValue);
         List<SysDictValue> list = findByParentId(id);

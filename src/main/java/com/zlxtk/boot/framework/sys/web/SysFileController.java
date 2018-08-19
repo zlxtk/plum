@@ -43,7 +43,7 @@ import java.util.Map;
  */
 @Slf4j
 @Controller
-public class SysFileController extends BaseController<SysFile, String> {
+public class SysFileController extends BaseController<SysFile, Long> {
 
     public final static String UPLOAD_PROCESS_FILES_URL = "/sys/file/uploadProcessFiles";
     public final static String UPLOAD_PROCESS_FILES_URL_SSO = "/sys/file/uploadProcessFiles/sso";
@@ -103,7 +103,7 @@ public class SysFileController extends BaseController<SysFile, String> {
      */
     @GetMapping(value = {DOWNLOAD_URL, DOWNLOAD_URL_SSO})
     public ResponseEntity<?> download(@RequestParam("id") String id) throws FileNotFoundException {
-        SysFile sysFile = fileService.findById(id);
+        SysFile sysFile = fileService.findById(Long.parseLong(id));
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
@@ -117,7 +117,7 @@ public class SysFileController extends BaseController<SysFile, String> {
                 .size(sysFile.getFileSize())
                 .build();
         headers.setContentDisposition(cd);
-        File realFile = fileService.getRealFileById(id);
+        File realFile = fileService.getRealFileById(Long.parseLong(id));
         Resource resource = new InputStreamResource(new FileInputStream(realFile));
         return ResponseEntity.ok().headers(headers).body(resource);
     }
@@ -130,7 +130,7 @@ public class SysFileController extends BaseController<SysFile, String> {
      */
     @GetMapping(value = {OPEN_URL, OPEN_URL_SSO})
     public String open(@RequestParam("id") String id) throws Exception{
-        SysFile sysFile = fileService.findById(id);
+        SysFile sysFile = fileService.findById(Long.parseLong(id));
         log.debug("Want access file online url is {}", sysFile.getFilePath());
         String redirectUrl = config.getAppHostPort()+"/webOffice/?furl="+ WebOffice3Des.encode(appFileUtil.getFileUrlFromFastDfs(sysFile.getFilePath()));
         log.warn("webOfficeUrl is :"+redirectUrl);
@@ -140,7 +140,7 @@ public class SysFileController extends BaseController<SysFile, String> {
     @PostMapping(value = "/sys/file/deleteById")
     @ResponseBody
     public JsonResponse deleteById(@RequestParam("id") String id){
-        fileService.deleteById(id);
+        fileService.deleteById(Long.parseLong(id));
         return JsonResponse.defaultSuccessResponse();
     }
 

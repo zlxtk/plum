@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SysDictService extends BaseService<SysDict, String> implements ISysDictService {
+public class SysDictService extends BaseService<SysDict, Long> implements ISysDictService {
 
     private SysDictRepository dictRepository;
 
@@ -27,14 +27,14 @@ public class SysDictService extends BaseService<SysDict, String> implements ISys
     }
 
     @Override
-    public List<SysDict> findByParentId(String parentId) {
+    public List<SysDict> findByParentId(Long parentId) {
         return dictRepository.findByParentId(parentId);
     }
 
     @Override
     @Cacheable
-    public List<SysDict> findByEnabled(Boolean enabled) {
-        return dictRepository.findByEnabled(enabled);
+    public List<SysDict> findByState(Integer state) {
+        return dictRepository.findByState(state);
     }
 
 

@@ -5,10 +5,10 @@ import com.zlxtk.boot.framework.sys.model.SysDict;
 
 import java.util.List;
 
-public interface ISysDictService extends IBaseService<SysDict, String> {
+public interface ISysDictService extends IBaseService<SysDict, Long> {
 
-    List<SysDict> findByParentId(String parentId);
+    List<SysDict> findByParentId(Long parentId);
 
-    List<SysDict> findByEnabled(Boolean enabled);
+    List<SysDict> findByState(Integer state);
 
 }

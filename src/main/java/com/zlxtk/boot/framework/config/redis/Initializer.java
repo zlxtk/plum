@@ -1,5 +1,5 @@
 
-package com.zlxtk.boot.framework.config;
+package com.zlxtk.boot.framework.config.redis;
 
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 
@@ -19,6 +19,6 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 public class Initializer extends AbstractHttpSessionApplicationInitializer {
 
     public Initializer() {
-        super(RedisConfiguration.class);
+        super(RedisSessionConfig.class);
     }
 }

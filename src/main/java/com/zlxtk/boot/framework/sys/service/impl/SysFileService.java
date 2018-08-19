@@ -32,7 +32,7 @@ import java.util.List;
 @Slf4j
 @Service
 @DependsOn(value = {"appFileUtil"})
-public class SysFileService extends BaseService<SysFile, String> implements ISysFileService {
+public class SysFileService extends BaseService<SysFile, Long> implements ISysFileService {
 
     @Autowired
     private SysFileRepository repository;
@@ -95,14 +95,14 @@ public class SysFileService extends BaseService<SysFile, String> implements ISys
     }
 
     @Override
-    public File getRealFileById(String id) {
+    public File getRealFileById(Long id) {
         SysFile sysFile = this.findById(id);
         return appFileUtil.getFileFromSystem(sysFile.getFilePath());
     }
 
     @Override
     @Transactional
-    public void deleteById ( String id ) {
+    public void deleteById ( Long id ) {
         SysFile sysFile = this.findById(id);
         String filePath = sysFile.getFilePath();
         super.deleteById(id);

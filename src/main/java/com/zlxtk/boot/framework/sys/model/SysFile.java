@@ -24,7 +24,7 @@ public class SysFile extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     //文件名称
     @Column(nullable = false, length = 200)

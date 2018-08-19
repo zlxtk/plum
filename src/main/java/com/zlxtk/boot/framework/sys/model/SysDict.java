@@ -24,7 +24,7 @@ public class SysDict extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(nullable = false, length = 255)
     private String dictType;
@@ -39,5 +39,5 @@ public class SysDict extends BaseModel {
     private Integer displayOrder;
 
     @Column
-    private String parentId;
+    private Long parentId;
 }

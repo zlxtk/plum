@@ -16,9 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.session.FindByIndexNameSessionRepository;
-import org.springframework.session.Session;
-import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 /**
@@ -44,9 +41,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SuccessLogoutHandler successLogoutHandler;
-
-    @Autowired
-    private FindByIndexNameSessionRepository<Session> sessionRepository;
 
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -87,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/logout").logoutSuccessHandler(successLogoutHandler).permitAll()
 
                 .and().csrf().disable()
-                .sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
+        ;
     }
 
     @Override
@@ -118,8 +112,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return rememberMeServices;
     }
 
-    @Bean
-    SpringSessionBackedSessionRegistry sessionRegistry() {
-        return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
-    }
 }

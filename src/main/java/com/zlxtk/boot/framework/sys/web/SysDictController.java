@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sys/dict")
-public class SysDictController extends BaseController<SysDict, String> {
+public class SysDictController extends BaseController<SysDict, Long> {
 
     private ISysDictService sysDictService;
 
@@ -67,7 +67,7 @@ public class SysDictController extends BaseController<SysDict, String> {
     @ApiOperation(value = "根据id删除字典类型", notes = "根据id删除字典类型")
     @ApiImplicitParam(name = "id", value = "字典类型ID",  dataType = "String", paramType = "query")
     public JsonResponse deleteById(@RequestParam(required = false) String id) {
-        return super.deleteById( id );
+        return super.deleteById( Long.parseLong(id) );
     }
 
     /**
@@ -88,7 +88,11 @@ public class SysDictController extends BaseController<SysDict, String> {
     //@PreAuthorize("hasAuthority('ROLE_SUPER')")  // 指定角色权限才能操作方法
     @ApiOperation(value = "批量逻辑删除字典类型", notes = "批量逻辑删除字典类型")
     public JsonResponse deleteAllByIds(@RequestBody(required = false) String[] ids) {
-        return  super.deleteAllByIds(ids);
+        Long[] idsL = new Long[ids.length];
+        for(int i=0;i<ids.length;i++){
+            idsL[i]=Long.parseLong(ids[i]);
+        }
+        return  super.deleteAllByIds(idsL);
     }
 
     /**
@@ -103,7 +107,7 @@ public class SysDictController extends BaseController<SysDict, String> {
     })
     public JsonResponse updateEnable(@RequestParam(required = false) String id, @RequestParam(required = false) Boolean enabled) {
         SysDict dict=new SysDict();
-        dict.setId(id);
+        dict.setId(Long.parseLong(id));
         if(enabled){
             dict.setState(ApplicationConstants.MODEL_STATE_ENABLE);
         }else{
@@ -123,7 +127,7 @@ public class SysDictController extends BaseController<SysDict, String> {
     @ApiImplicitParam(name = "id", value = "字典类型ID", dataType = "String", paramType = "query")
     @PostMapping(value = {"/findById","/findById/sso"})
     public JsonResponse findById(@RequestParam(required = false) String id) {
-        return super.findById( id );
+        return super.findById( Long.parseLong(id) );
     }
 
     /**
@@ -196,7 +200,7 @@ public class SysDictController extends BaseController<SysDict, String> {
     //@PreAuthorize("hasAuthority('ROLE_USER')")  // 指定角色权限才能操作方法
     @PostMapping(value = "/listJson")
     public JsonResponse listJson() {
-        List<SysDict> list = sysDictService.findByEnabled(true);
+        List<SysDict> list = sysDictService.findByState(ApplicationConstants.MODEL_STATE_ENABLE);
         return JsonResponse.builder().errcode(JsonResponse.SUCCESS_CODE).message("OK").data(list).build();
     }
 

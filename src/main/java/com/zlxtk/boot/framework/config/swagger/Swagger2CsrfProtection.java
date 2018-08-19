@@ -1,9 +1,10 @@
 /*
  * 版权所有 © 北京晟壁科技有限公司 2008-2027。保留一切权利!
  */
-package com.zlxtk.boot.framework.config;
+package com.zlxtk.boot.framework.config.swagger;
 
 import com.google.common.collect.ImmutableList;
+import com.zlxtk.boot.framework.config.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;

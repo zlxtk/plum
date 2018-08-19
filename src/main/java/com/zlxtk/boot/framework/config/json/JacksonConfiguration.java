@@ -1,4 +1,4 @@
-package com.zlxtk.boot.framework.config;
+package com.zlxtk.boot.framework.config.json;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;

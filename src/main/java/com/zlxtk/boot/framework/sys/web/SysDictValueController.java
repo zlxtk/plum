@@ -3,7 +3,6 @@
  */
 package com.zlxtk.boot.framework.sys.web;
 
-import com.zlxtk.boot.framework.base.constants.ApplicationConstants;
 import com.zlxtk.boot.framework.base.web.controller.BaseController;
 import com.zlxtk.boot.framework.base.web.response.JsonResponse;
 import com.zlxtk.boot.framework.sys.model.SysDictValue;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/sys/dictValue")
-public class SysDictValueController extends BaseController<SysDictValue,String> {
+public class SysDictValueController extends BaseController<SysDictValue,Long> {
 
     private ISysDictValueService sysDictValueService;
 
@@ -68,7 +67,7 @@ public class SysDictValueController extends BaseController<SysDictValue,String> 
     @ApiOperation(value = "根据id删除字典值", notes = "根据id删除字典值")
     @ApiImplicitParam (name = "id", value = "字典值ID",  dataType = "Integer", paramType = "query")
     public JsonResponse deleteById(@RequestParam(required = false) String id) {
-        return super.deleteById( id );
+        return super.deleteById( Long.parseLong(id)  );
     }
 
     /**
@@ -89,7 +88,11 @@ public class SysDictValueController extends BaseController<SysDictValue,String> 
     //@PreAuthorize("hasAuthority('ROLE_SUPER')")  // 指定角色权限才能操作方法
     @ApiOperation(value = "批量逻辑删除字典值", notes = "批量逻辑删除字典值")
     public JsonResponse deleteAllByIds(@RequestBody(required = false) String[] ids) {
-        return  super.deleteAllByIds(ids);
+        Long[] idsL = new Long[ids.length];
+        for(int i=0;i<ids.length;i++){
+            idsL[i]=Long.parseLong(ids[i]);
+        }
+        return  super.deleteAllByIds(idsL);
     }
 
     /**
@@ -103,7 +106,7 @@ public class SysDictValueController extends BaseController<SysDictValue,String> 
             @ApiImplicitParam(name = "enabled", value = "是否可用", required = true, dataType = "Boolean", paramType = "query")
     })
     public JsonResponse updateEnable(@RequestParam(required = false) String id, @RequestParam(required = false) Boolean enabled) {
-        return  JsonResponse.success(sysDictValueService.updateEnable(enabled,id));
+        return  JsonResponse.success(sysDictValueService.updateEnable(enabled,Long.parseLong(id) ));
     }
 
     //批量修改可见
@@ -117,7 +120,7 @@ public class SysDictValueController extends BaseController<SysDictValue,String> 
     @ApiImplicitParam(name = "id", value = "字典类型ID", dataType = "Integer", paramType = "query")
     @PostMapping(value = {"/findById","/findById/sso"})
     public JsonResponse findById(@RequestParam(required = false) String id) {
-        return super.findById( id );
+        return super.findById( Long.parseLong(id)  );
     }
 
     /**

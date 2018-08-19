@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SysDictRepository extends BaseRepository<SysDict, String> {
+public interface SysDictRepository extends BaseRepository<SysDict, Long> {
 
-    List<SysDict> findByParentId(String parentId);
+    List<SysDict> findByParentId(Long parentId);
 
-    List<SysDict> findByEnabled(Boolean enabled);
+    List<SysDict> findByState(Integer enabled);
 
 
 }

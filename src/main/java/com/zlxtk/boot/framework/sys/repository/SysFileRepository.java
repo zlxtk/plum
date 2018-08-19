@@ -5,7 +5,7 @@ import com.zlxtk.boot.framework.sys.model.SysFile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SysFileRepository extends BaseRepository<SysFile, String> {
+public interface SysFileRepository extends BaseRepository<SysFile, Long> {
 
 
 }

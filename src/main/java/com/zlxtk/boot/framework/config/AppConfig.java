@@ -17,14 +17,14 @@ public class AppConfig {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
-    @Value("${spring.redis.cluster.nodes}")
-    private String redisClusterNodes;
-
-    @Value("${spring.redis.cluster.password}")
-    private String redisPassword;
-
-    @Value("${spring.redis.cluster.max-redirects}")
-    private String redisMaxRedirects;
+//    @Value("${spring.redis.cluster.nodes}")
+//    private String redisClusterNodes;
+//
+//    @Value("${spring.redis.cluster.password}")
+//    private String redisPassword;
+//
+//    @Value("${spring.redis.cluster.max-redirects}")
+//    private String redisMaxRedirects;
 
     @Value("${server.servlet.session.timeout}")
     private Integer redisMaxInactiveIntervalInSeconds;

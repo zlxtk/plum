@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlxtk.boot.framework.base.exception.Exceptions;
-import com.zlxtk.boot.framework.config.JacksonConfiguration;
+import com.zlxtk.boot.framework.config.json.JacksonConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 

@@ -5,13 +5,13 @@ import com.zlxtk.boot.framework.sys.model.SysDictValue;
 
 import java.util.List;
 
-public interface ISysDictValueService extends IBaseService<SysDictValue,String> {
+public interface ISysDictValueService extends IBaseService<SysDictValue,Long> {
 
-    int updateEnable(boolean enabled, String dictValueId);
+    int updateEnable(boolean enabled, Long dictValueId);
 
-    List<SysDictValue> findByParentId(String parentId);
+    List<SysDictValue> findByParentId(Long parentId);
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
 
 

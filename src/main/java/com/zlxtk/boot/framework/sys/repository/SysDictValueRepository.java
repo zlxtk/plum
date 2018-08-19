@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface SysDictValueRepository extends BaseRepository<SysDictValue, String> {
+public interface SysDictValueRepository extends BaseRepository<SysDictValue, Long> {
 
-    List<SysDictValue> findByParentId(String parentId);
+    List<SysDictValue> findByParentId(Long parentId);
 
-    List<SysDictValue> findByEnabled(Boolean enabled);
+    List<SysDictValue> findByState(Integer state);
 
 
     /**
