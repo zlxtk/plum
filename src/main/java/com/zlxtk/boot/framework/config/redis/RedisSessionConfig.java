@@ -11,11 +11,10 @@ import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
- * 用途：Spring Session with Redis
- * 参考：https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot-redis.html
- * http://blog.didispace.com/spring-session-xjf-2/
- * 作者: lishuyi
- * 时间: 2018/3/7  14:39
+ * 用途：spring-data-redis
+ * 参考：https://docs.spring.io/spring-data/redis/docs/2.0.1.RELEASE/reference/html/#new-in-2.0.0
+ * 作者: zlxtk
+ * 时间: 2018/8/18
  */
 @Slf4j
 @Configuration
@@ -30,7 +29,9 @@ public class RedisSessionConfig {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory();
+        LettuceConnectionFactory factory=new LettuceConnectionFactory();
+        factory.setPassword("123456");
+        return factory;
     }
 
     @Bean

@@ -67,7 +67,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
-//                .antMatchers("/css/**", "/js/**", "/html/**", "/font-awesome/**", "/Ionicons/**", "/dist/**", "/bootstrap/**", "/plugins/**").permitAll()
                 .antMatchers("/error", "/logout").permitAll()  // 都可以访问
                 .antMatchers("/h2-console/**").permitAll()  // 都可以访问
                 .antMatchers("/", "/index").access("hasRole('USER')")
