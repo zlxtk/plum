@@ -4,13 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 @Slf4j
 @SpringBootApplication
-@EnableAutoConfiguration
 public class AppApplication implements CommandLineRunner {
 
     @Autowired
@@ -21,6 +19,7 @@ public class AppApplication implements CommandLineRunner {
         SpringApplication.run(AppApplication.class, args);
     }
 
+    @Override
     public void run(String... args) throws Exception {
         String[] activeProfiles = appContext.getEnvironment().getActiveProfiles();
         for (String profile : activeProfiles) {

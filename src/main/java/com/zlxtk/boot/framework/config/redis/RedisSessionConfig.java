@@ -4,8 +4,6 @@ package com.zlxtk.boot.framework.config.redis;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
@@ -18,21 +16,7 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
  */
 @Slf4j
 @Configuration
-@EnableRedisHttpSession
 public class RedisSessionConfig {
-
-    @Bean
-    public static ConfigureRedisAction configureRedisAction() {
-        return ConfigureRedisAction.NO_OP;
-    }
-
-
-    @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
-        LettuceConnectionFactory factory=new LettuceConnectionFactory();
-        factory.setPassword("123456");
-        return factory;
-    }
 
     @Bean
     public CookieSerializer cookieSerializer() {

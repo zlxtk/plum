@@ -49,6 +49,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
 
+    //redis 集群
+    // https://mvnrepository.com/artifact/org.redisson/redisson
+    compile group: 'org.redisson', name: 'redisson', version: '3.7.2'
+
     //时间工具
     // https://mvnrepository.com/artifact/joda-time/joda-time
     compile group: 'joda-time', name: 'joda-time', version: '2.10'
