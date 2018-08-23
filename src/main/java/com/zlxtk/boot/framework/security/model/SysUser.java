@@ -38,6 +38,15 @@ public class SysUser extends BaseModel  implements UserDetails {
     @Column(length = 100)
     private String password;
 
+    @Column(length = 100)
+    private String email;
+
+    @Column(length = 2)
+    private String sex;
+
+    @Column(length = 13)
+    private String phone;
+
     @Transient
     private Set<SysRole> roles;
 

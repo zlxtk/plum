@@ -53,7 +53,7 @@ public class SuccessLoginHandler extends SimpleUrlAuthenticationSuccessHandler {
         }
 
         if (authorityList.contains("ROLE_ADMIN")) {
-            url = "admin";
+            url = "admin/index";
         }
 
         return url;

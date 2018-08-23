@@ -4,7 +4,6 @@ package com.zlxtk.boot.framework.config.redis;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
@@ -26,7 +25,9 @@ public class RedisSessionConfig {
         // Failed to deserialize object type; nested exception is java.lang.ClassNotFoundException: com.simbest.boot.uums.role.model.SysRole
 //        if(StringUtils.isNotEmpty(config.getCookiePath()))
 //            serializer.setCookiePath(config.getCookiePath()); // <2>
-        serializer.setDomainNamePattern("^.+?\\.(\\w+\\.[a-z]+)$"); // <3>
+        //这个正则可能表达不了域名
+//        serializer.setDomainNamePattern("^.+?\\.(\\w+\\.[a-z]+)$"); // <3>
+        serializer.setDomainNamePattern("/");
         return serializer;
     }
 

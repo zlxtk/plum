@@ -29,6 +29,11 @@ public class LoginController {
 
     @RequestMapping("/admin")
     public String admin(Model model) {
-        return "admin/admin";
+        return "admin/index";
+    }
+
+    @RequestMapping("/admin/index")
+    public String adminIndex(Model model) {
+        return "admin/index";
     }
 }
