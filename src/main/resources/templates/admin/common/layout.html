@@ -1,0 +1,29 @@
+<#macro header>
+<!DOCTYPE html>
+<html>
+<head>
+  <#include "/admin/common/head.html">
+  <#nested> 
+</head>
+</#macro>
+<!-- /header -->
+<#macro body>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+	<#include "/admin/common/header.html">
+	<#include "/admin/common/menu.html">
+	<#nested>
+	<#include "/admin/common/footer.html">
+	<#include "/admin/common/controlSidebar.html">
+	<!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+	<div class="control-sidebar-bg"></div>
+</div>
+</#macro>
+<!-- /body -->
+<#macro footer>
+	<#include "/admin/common/js.html">
+	<#nested>
+</body>
+</html>
+</#macro>
