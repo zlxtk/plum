@@ -42,6 +42,8 @@ public class SysUserService extends BaseService<SysUser, Long> implements ISysUs
             throw new UsernameNotFoundException("用户名不存在");
         }
         user.setRoles(new HashSet<>(sysRoleService.findAllByUsername(username)));
+
+        //TODO 用户菜单
         return user;
     }
 }

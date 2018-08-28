@@ -26,7 +26,7 @@ public class SysUser extends BaseModel  implements UserDetails {
     private Long id;
 
     @NonNull
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false,length = 50, unique = true)
     private String username;
 
     @Column(length = 50)
@@ -44,7 +44,7 @@ public class SysUser extends BaseModel  implements UserDetails {
     @Column(length = 2)
     private String sex;
 
-    @Column(length = 13)
+    @Column(length = 13, unique = true)
     private String phone;
 
     @Transient

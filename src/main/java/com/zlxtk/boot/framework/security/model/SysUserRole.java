@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * @Description: 角色实体类
+ * @Description: 用户角色实体类
  * @Auther: tangyake
  * @Date: 2018/7/31 12:29
  */

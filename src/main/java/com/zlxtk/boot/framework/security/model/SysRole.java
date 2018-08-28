@@ -25,7 +25,7 @@ public class SysRole extends BaseModel {
     private Long id;
 
     @NonNull
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String roleCode; //角色编码
 
     @NonNull

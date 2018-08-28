@@ -24,7 +24,7 @@ public class SysPermission extends BaseModel {
     private Long id;
 
     @NonNull
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String permissionCode;//权限编码
 
     @Column(length = 100)
@@ -36,4 +36,8 @@ public class SysPermission extends BaseModel {
 
     @Column()
     private String permissionUrl;
+
+    @NonNull
+    @Column(length = 2)
+    private Integer permissionLevel; //权限级别，目前只定义2级
 }
