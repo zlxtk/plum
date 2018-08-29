@@ -1,9 +1,14 @@
 package com.zlxtk.boot.framework.security.model;
 
 import com.zlxtk.boot.framework.base.model.BaseModel;
+import com.zlxtk.boot.framework.security.enums.SysPermissionTypeEnum;
 import lombok.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @Description: 权限实体类
@@ -30,14 +35,58 @@ public class SysPermission extends BaseModel {
     @Column(length = 100)
     private String parentCode;//上级权限编码
 
+    @Column
+    private String description;//描述
+
     @NonNull
     @Column(nullable = false, length = 30)
-    private String permissionType;//权限类型
+    @Enumerated(EnumType.STRING)
+    private SysPermissionTypeEnum permissionType;//权限类型
 
     @Column()
     private String permissionUrl;
 
+    @Column(length = 50)
+    private String icon;//图标
+
     @NonNull
-    @Column(length = 2)
-    private Integer permissionLevel; //权限级别，目前只定义2级
+    @Column(length = 3)
+    private Integer permissionLevel; //权限级别
+
+    @Transient
+    private List<SysPermission> childs;//下级权限
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        SysPermission rhs = (SysPermission) obj;
+        return new EqualsBuilder()
+                .append(getPermissionCode(), rhs.getPermissionCode())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getPermissionCode())
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+
+    public String getPermissionType() {
+        return this.permissionType.getValue();
+    }
 }

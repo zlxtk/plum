@@ -2,6 +2,8 @@ package com.zlxtk.boot.framework.security.model;
 
 import com.zlxtk.boot.framework.base.model.BaseModel;
 import lombok.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -78,5 +80,29 @@ public class SysUser extends BaseModel  implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        SysUser rhs = (SysUser) obj;
+        return new EqualsBuilder()
+                .append(getUsername(), rhs.getUsername())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getUsername())
+                .toHashCode();
     }
 }

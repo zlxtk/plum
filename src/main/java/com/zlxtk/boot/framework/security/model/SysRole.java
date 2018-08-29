@@ -2,6 +2,9 @@ package com.zlxtk.boot.framework.security.model;
 
 import com.zlxtk.boot.framework.base.model.BaseModel;
 import lombok.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -37,4 +40,30 @@ public class SysRole extends BaseModel {
 
     @Transient
     private Set<SysPermission> permissions;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        SysRole rhs = (SysRole) obj;
+        return new EqualsBuilder()
+                .append(getRoleCode(), rhs.getRoleCode())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getRoleCode())
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }
