@@ -5,11 +5,14 @@ import com.zlxtk.boot.framework.security.model.SysPermission;
 import com.zlxtk.boot.framework.security.repository.SysPermissionRepository;
 import com.zlxtk.boot.framework.security.service.ISysPermissionService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -39,15 +42,27 @@ public class SysPermissionService extends BaseService<SysPermission,Long> implem
      * @param permissions 无上下级结构的权限列表
      * @return
      */
+    @Override
     public List<SysPermission> formatPermission(List<SysPermission> permissions){
-        //以上级parentCode为keys成立成map
-
-        //循环组装
+        //以上级parentCode为keys组装成map
+        Map<String,List<SysPermission>> map=new HashMap<>();
         List<SysPermission> returnList=new ArrayList<>();
+        for (SysPermission p:permissions         ) {
+            if(StringUtils.isEmpty(p.getParentCode())){
+                p.setParentCode("");
+                returnList.add(p);
+            }
+            if(map.get(p.getParentCode())==null){
+                List<SysPermission> list=new ArrayList<>();
+                list.add(p);
+                map.put(p.getParentCode(),list);
+            }else {
+                map.get(p.getParentCode()).add(p);
+            }
+        }
+        //循环组装
         for (SysPermission permission:permissions) {
-            List<SysPermission> childs=new ArrayList<>();
-
-
+            permission.setChilds(map.get(permission.getPermissionCode()));
         }
         return returnList;
     }

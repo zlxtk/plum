@@ -52,6 +52,9 @@ public class SysUser extends BaseModel  implements UserDetails {
     @Transient
     private Set<SysRole> roles;
 
+    @Transient
+    private List<SysPermission> menus;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();

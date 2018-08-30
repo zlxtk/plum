@@ -13,4 +13,7 @@ import java.util.List;
 public interface ISysPermissionService extends IBaseService<SysPermission,Long> {
 
     List<SysPermission> findAllByRoleCode(String roleCode);
-}
+
+    public List<SysPermission> formatPermission(List<SysPermission> permissions);
+
+    }
