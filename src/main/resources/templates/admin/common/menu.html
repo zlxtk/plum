@@ -2,7 +2,7 @@
 <aside class="main-sidebar">
 
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <li class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
@@ -31,20 +31,47 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
-            <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                    <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
-                </ul>
-            </li>
+            <#if user.menus[0].childs?size gt 0>
+                <#list user.menus[0].childs as permission >
+                    <#if permission.permissionType=="访问路径">
+                        <#if permission.childs?size gt 0>
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-link"></i> <span>${permission.description!''}</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <#list permission.childs as child>
+                                        <li><a href="${(child.permissionUrl)!'#'}">${child.description!''}</a></li>
+                                    </#list>
+                                </ul>
+                            </li>
+                        <#else>
+                            <li>
+                                <a href="${(permission.permissionUrl)!'#'}">
+                                    <i class="fa ${(permission.icon)!'fa-link'}"></i>
+                                    <span>${permission.description!''}</span>
+                                </a>
+                            </li>
+                        </#if>
+                    </#if>
+                </#list>
+            </#if>
+            <!--&lt;!&ndash; Optionally, you can add icons to the links &ndash;&gt;-->
+            <!--<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>-->
+            <!--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
+            <!--<li class="treeview">-->
+                <!--<a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>-->
+                    <!--<span class="pull-right-container">-->
+                <!--<i class="fa fa-angle-left pull-right"></i>-->
+              <!--</span>-->
+                <!--</a>-->
+                <!--<ul class="treeview-menu">-->
+                    <!--<li><a href="#">Link in level 2</a></li>-->
+                    <!--<li><a href="#">Link in level 2</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
         </ul>
         <!-- /.sidebar-menu -->
     </section>
