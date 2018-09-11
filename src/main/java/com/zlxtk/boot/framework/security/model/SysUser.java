@@ -9,30 +9,27 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
-@EqualsAndHashCode(callSuper=true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
+@EqualsAndHashCode(callSuper = true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "sys_user")
-public class SysUser extends BaseModel  implements UserDetails {
+public class SysUser extends BaseModel implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
-    @Column(nullable = false,length = 50, unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
 
     @Column(length = 50)
-    private  String truename;
+    private String truename;
 
     @Column(length = 50)
     private String nickname;
@@ -53,7 +50,7 @@ public class SysUser extends BaseModel  implements UserDetails {
     private Set<SysRole> roles;
 
     @Transient
-    private List<SysPermission> menus;
+    private Map<String, SysPermission> menus;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,5 +1,6 @@
 <#macro header>
 <#local user=SPRING_SECURITY_CONTEXT.authentication.principal/><!--session中的用户-->
+<#local moduleCode=moduleCode!'/system'/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
 <!-- /header -->
 <#macro body>
 <#local user=SPRING_SECURITY_CONTEXT.authentication.principal/><!--session中的用户-->
+<#local moduleCode=moduleCode!'/system'/><!--session中的用户-->
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<#include "/admin/common/header.html">
@@ -25,6 +28,7 @@
 <!-- /body -->
 <#macro footer>
 <#local user=SPRING_SECURITY_CONTEXT.authentication.principal/><!--session中的用户-->
+<#local moduleCode=moduleCode!'/system'/>
 	<#include "/admin/common/js.html">
 	<#nested>
 </body>

@@ -31,11 +31,11 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
-            <#if user.menus[0].childs?size gt 0>
-                <#list user.menus[0].childs as permission >
+
+                <#list user.menus[moduleCode].childs as permission >
                     <#if permission.permissionType=="访问路径">
                         <#if permission.childs?size gt 0>
-                            <li class="treeview">
+                            <li class="treeview <#if permission.permissionCode?starts_with(moduleCode)> active </#if>">
                                 <a href="#"><i class="fa fa-link"></i> <span>${permission.description!''}</span>
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
@@ -43,13 +43,15 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <#list permission.childs as child>
-                                        <li><a href="${(child.permissionUrl)!'#'}">${child.description!''}</a></li>
+                                        <li <#if permission.permissionCode?starts_with(moduleCode)> class="active" </#if> >
+                                            <a href="${request.contextPath}${(child.permissionUrl)!'#'}">${child.description!''}</a>
+                                        </li>
                                     </#list>
                                 </ul>
                             </li>
                         <#else>
-                            <li>
-                                <a href="${(permission.permissionUrl)!'#'}">
+                            <li <#if permission.permissionCode?starts_with(moduleCode)> class="active" </#if> >
+                                <a href="${request.contextPath}${(permission.permissionUrl)!'#'}">
                                     <i class="fa ${(permission.icon)!'fa-link'}"></i>
                                     <span>${permission.description!''}</span>
                                 </a>
@@ -57,7 +59,7 @@
                         </#if>
                     </#if>
                 </#list>
-            </#if>
+
             <!--&lt;!&ndash; Optionally, you can add icons to the links &ndash;&gt;-->
             <!--<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>-->
             <!--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
