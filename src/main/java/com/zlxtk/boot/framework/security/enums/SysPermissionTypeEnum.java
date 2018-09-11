@@ -14,6 +14,8 @@ import lombok.Setter;
  */
 public enum SysPermissionTypeEnum implements BaseEnum {
 
+    //根下面是功能模块，功能模块下面是访问路径，访问路径打开的页面里面有按钮和执行方法
+    //根Code默认为/
     ROOT("根"),  MENU("访问路径"), BUTTON("按钮"), METHOD("执行方法"),MODULE("功能模块");
 
     @Setter @Getter

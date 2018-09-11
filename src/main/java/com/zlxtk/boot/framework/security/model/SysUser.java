@@ -9,10 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @EqualsAndHashCode(callSuper=true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
@@ -53,7 +50,7 @@ public class SysUser extends BaseModel  implements UserDetails {
     private Set<SysRole> roles;
 
     @Transient
-    private List<SysPermission> menus;
+    private List<Map<String,SysPermission>> menus;//用户菜单，map<permissionCode,sysPermission>
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

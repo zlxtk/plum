@@ -51,8 +51,8 @@ public class SysUserService extends BaseService<SysUser, Long> implements ISysUs
         }
         user.setRoles(new HashSet<>(sysRoleService.findAllByUsername(username)));
 
-        Set<SysPermission> permissions=new HashSet<>();
-        for(SysRole role:user.getRoles()){
+        Set<SysPermission> permissions = new HashSet<>();
+        for (SysRole role : user.getRoles()) {
             permissions.addAll(role.getPermissions());
         }
         user.setMenus(sysPermissionService.formatPermission(new ArrayList<SysPermission>(permissions)));
