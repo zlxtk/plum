@@ -35,7 +35,7 @@
                 <#list user.menus[moduleCode].childs as permission >
                     <#if permission.permissionType=="访问路径">
                         <#if permission.childs?size gt 0>
-                            <li class="treeview <#if permission.permissionCode?starts_with(moduleCode)> active </#if>">
+                            <li class="treeview <#if permission.permissionCode==moduleCode > active </#if>">
                                 <a href="#"><i class="fa fa-link"></i> <span>${permission.description!''}</span>
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
@@ -43,8 +43,8 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <#list permission.childs as child>
-                                        <li <#if permission.permissionCode?starts_with(moduleCode)> class="active" </#if> >
-                                            <a href="${request.contextPath}${(child.permissionUrl)!'#'}">${child.description!''}</a>
+                                        <li <#if permission.permissionCode==moduleCode> class="active" </#if> >
+                                            <a href="${request.contextPath}${(child.permissionUrl)!''}">${child.description!''}</a>
                                         </li>
                                     </#list>
                                 </ul>

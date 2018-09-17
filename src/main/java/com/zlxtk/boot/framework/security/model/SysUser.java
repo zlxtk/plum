@@ -50,7 +50,7 @@ public class SysUser extends BaseModel implements UserDetails {
     private Set<SysRole> roles;
 
     @Transient
-    private Map<String, SysPermission> menus;
+    private Map<String, SysPermission> menus;//用户的菜单<MODULE权限的code,MODULE菜单>
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

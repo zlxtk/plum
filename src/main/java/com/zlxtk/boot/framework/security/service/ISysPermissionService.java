@@ -15,6 +15,6 @@ public interface ISysPermissionService extends IBaseService<SysPermission, Long>
 
     List<SysPermission> findAllByRoleCode(String roleCode);
 
-    public Map<String, SysPermission> formatPermission(List<SysPermission> permissions);
+    Map<String, SysPermission> formatPermission(List<SysPermission> permissions);
 
 }

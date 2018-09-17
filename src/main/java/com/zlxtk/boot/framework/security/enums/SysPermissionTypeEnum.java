@@ -14,6 +14,11 @@ import lombok.Setter;
  */
 public enum SysPermissionTypeEnum implements BaseEnum {
 
+    /**
+     * 全局有唯一的根:/
+     * 每个module为管理后台上部的模块菜单
+     *
+     */
     ROOT("根"),  MENU("访问路径"), BUTTON("按钮"), METHOD("执行方法"),MODULE("功能模块");
 
     @Setter @Getter

@@ -43,15 +43,18 @@ public class SysPermission extends BaseModel {
     @Enumerated(EnumType.STRING)
     private SysPermissionTypeEnum permissionType;//权限类型
 
+    /**
+     * 级别只有2级，1或2，分别对应管理后台左侧菜单的一、二级
+     */
+    @NonNull
+    @Column(length = 3)
+    private Integer permissionLevel; //权限级别
+
     @Column()
     private String permissionUrl;
 
     @Column(length = 50)
     private String icon;//图标
-
-    @NonNull
-    @Column(length = 3)
-    private Integer permissionLevel; //权限级别
 
     @Transient
     private List<SysPermission> childs;//下级权限
