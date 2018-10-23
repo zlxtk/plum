@@ -12,24 +12,24 @@ import javax.persistence.*;
 import java.util.*;
 
 @Data
-@EqualsAndHashCode(callSuper=true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
+@EqualsAndHashCode(callSuper = true)//equals和hashCode调研父类的方法 https://blog.csdn.net/zhanlanmg/article/details/50392266
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "sys_user")
-public class SysUser extends BaseModel  implements UserDetails {
+public class SysUser extends BaseModel implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
-    @Column(nullable = false,length = 50, unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
 
     @Column(length = 50)
-    private  String truename;
+    private String truename;
 
     @Column(length = 50)
     private String nickname;
@@ -50,7 +50,7 @@ public class SysUser extends BaseModel  implements UserDetails {
     private Set<SysRole> roles;
 
     @Transient
-    private List<Map<String,SysPermission>> menus;//用户菜单，map<permissionCode,sysPermission>
+    private Map<String, SysPermission> menus;//用户的菜单<MODULE权限的code,MODULE菜单>
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Description:
  * @Auther: tangyake
@@ -28,12 +30,12 @@ public class LoginController {
     }
 
     @RequestMapping("/admin")
-    public String admin(Model model) {
+    public String admin(Model model, HttpServletRequest request) {
         return "admin/index";
     }
 
     @RequestMapping("/admin/index")
-    public String adminIndex(Model model) {
+    public String adminIndex(Model model, HttpServletRequest request) {
         return "admin/index";
     }
 }

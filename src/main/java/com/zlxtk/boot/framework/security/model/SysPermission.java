@@ -30,7 +30,7 @@ public class SysPermission extends BaseModel {
 
     @NonNull
     @Column(nullable = false, length = 100, unique = true)
-    private String permissionCode;//权限编码,根为/，必须以上级权限编码为前缀，比如/parentCode/childCode
+    private String permissionCode;//权限编码
 
     @Column(length = 100)
     private String parentCode;//上级权限编码
@@ -43,15 +43,18 @@ public class SysPermission extends BaseModel {
     @Enumerated(EnumType.STRING)
     private SysPermissionTypeEnum permissionType;//权限类型
 
+    /**
+     * 级别只有2级，1或2，分别对应管理后台左侧菜单的一、二级
+     */
+    @NonNull
+    @Column(length = 3)
+    private Integer permissionLevel; //权限级别
+
     @Column()
     private String permissionUrl;
 
     @Column(length = 50)
     private String icon;//图标
-
-    @NonNull
-    @Column(length = 3)
-    private Integer permissionLevel; //权限级别,共3级，根为0级，模块为1级，访问菜单为2级、3级，按钮和执行方法为3级
 
     @Transient
     private List<SysPermission> childs;//下级权限
