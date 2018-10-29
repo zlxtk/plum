@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>erp-商品列表</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="icon" type="image/png" href="${request.contextPath}/amazeUI/i/favicon.png">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="${request.contextPath}/amazeUI/i/app-icon72x72@2x.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="${request.contextPath}/amazeUI/i/app-icon72x72@2x.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="${request.contextPath}/amazeUI/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="${request.contextPath}/amazeUI/css/amazeUI.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/amazeUI/css/app.css">
+</head>
+<body>
+
+<!-- content start -->
+<div class="am-g">
+    <div class="am-u-sm-12 am-u-md-6">
+        <div class="am-btn-toolbar">
+            <div class="am-btn-group am-btn-group-xs">
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 进货</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 返货</button>
+            </div>
+        </div>
+    </div>
+    <div class="am-u-sm-12 am-u-md-3">
+        <div class="am-form-group">
+            <span>货号：</span>
+        </div>
+    </div>
+    <div class="am-u-sm-12 am-u-md-3">
+        <div class="am-input-group am-input-group-sm">
+            <input type="text" class="am-form-field" name="goodsCode">
+            <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="button">搜索</button>
+          </span>
+        </div>
+    </div>
+</div>
+
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+                <thead>
+                <tr>
+                    <th class="table-check"><input type="checkbox" /></th>
+                    <th class="table-date">图片</th>
+                    <th class="table-id">货号</th>
+                    <th class="table-title">名称</th>
+                    <th class="table-title">库存</th>
+                    <th class="table-type">价格</th>
+                    <th class="table-author am-hide-sm-only">进货价</th>
+                    <th class="table-set">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <#if pages.totalElements!=0>
+                    <#list pages.content as goods >
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>${goods.imgUrl!''}</td>
+                    <td><a href="#">${goods.goodsCode!''}</a></td>
+                    <td>${goods.goodsName!''}</td>
+                    <td>${goods.count!''}</td>
+                    <td class="">${goods.price!''}</td>
+                    <td class="am-hide-sm-only">${goods.leastPrice!''}</td>
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 销售</button>
+                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 退货</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                    </#list>
+                <#else>
+                <tr><td>没有该货号商品</td></tr>
+                </#if>
+
+                </tbody>
+            </table>
+            <div class="am-cf">
+                共 ${pages.totalElements} 条记录
+                <div class="am-fr">
+                    <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
+                        <li class="am-pagination-prev ">
+                            <a href="#" class="">上一页</a>
+                        </li>
+                        <li class="am-pagination-select">
+                            <select>
+                                <option value="#" class="">1
+                                    /
+                                </option>
+                                <option value="#" class="">2
+                                    /
+                                </option>
+                                <option value="#" class="">3
+                                    /
+                                </option>
+                            </select>
+                        </li>
+                        <li class="am-pagination-next ">
+                            <a href="#" class="">下一页</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <p>注：.....</p>
+        </form>
+    </div>
+
+</div>
+</div>
+<!-- content end -->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="${request.contextPath}/jquery/dist/jquery.slim.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="${request.contextPath}/amazeUI/js/amazeUI.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="${request.contextPath}/amazeUI/js/amazeUI.min.js"></script>
+</body>
+</html>

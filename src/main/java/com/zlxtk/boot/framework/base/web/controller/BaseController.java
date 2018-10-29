@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
         this.service = service;
     }
 
+    @ResponseBody
     @PostMapping(value = "/findById")
     public JsonResponse findById(@RequestParam PK id) {
         return JsonResponse.success(service.findById(id));
@@ -53,6 +55,7 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
      * @param o
      * @return
      */
+    @ResponseBody
     @PostMapping(value = "/findAll")
     public JsonResponse findAll(@RequestParam(required = false, defaultValue = "1") int page, //
                                 @RequestParam(required = false, defaultValue = "10") int size, //
@@ -79,9 +82,10 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
         Specification<T> specification =predicateBuilder.build();
         // 获取查询结果
         Page<T> pages = service.findAll(specification, pageRequest);
-        return JsonResponse.success(null);
+        return JsonResponse.success(pages);
     }
 
+    @ResponseBody
     @PostMapping(value = "/create")
     public JsonResponse create(@RequestBody T o) {
         try {
@@ -97,6 +101,7 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
      * @param newObj
      * @return
      */
+    @ResponseBody
     @PostMapping(value = "/update")
     public JsonResponse update(@RequestBody T newObj) {
         T oldObj = service.findById((PK) ObjectUtil.getEntityIdVaue(newObj));
@@ -119,6 +124,7 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
         }
     }
 
+    @ResponseBody
     @PostMapping(value = "/delete")
     public JsonResponse delete(@RequestBody T o) {
         try {
@@ -129,6 +135,7 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
         }
     }
 
+    @ResponseBody
     @PostMapping(value = "/deleteAllByIds")
     public JsonResponse deleteAllByIds(@RequestBody PK[] ids) {
         try {

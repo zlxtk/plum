@@ -8,8 +8,11 @@ import com.zlxtk.boot.framework.base.repository.BaseRepository;
 import com.zlxtk.boot.framework.base.service.IBaseService;
 import com.zlxtk.boot.framework.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.transaction.Transactional;
@@ -123,5 +126,30 @@ public class BaseService<T extends BaseModel, PK extends Serializable> implement
             psSet.add(baseRepository.findById(pk).orElse(null));
         }
         baseRepository.deleteAll(psSet);
+    }
+
+    @Override
+    public Pageable getPageable(int page, int size, String direction, String properties) {
+        int pagePage = page < 1 ? 0 : page - 1;
+        int pageSize = size < 1 ? 1 : (size > 100 ? 100 : size);
+        PageRequest pageable;
+        if (StringUtils.isNotEmpty(direction) && StringUtils.isNotEmpty(properties)) {
+            Sort.Direction sortDirection;
+            try {
+                direction = direction.toUpperCase();
+                sortDirection = Sort.Direction.valueOf(direction);
+            } catch (IllegalArgumentException var11) {
+                var11.printStackTrace();
+                sortDirection = org.springframework.data.domain.Sort.Direction.ASC;
+            }
+
+            String[] sortProperties = properties.split(",");
+            Sort sort = new Sort(sortDirection, sortProperties);
+            pageable = PageRequest.of(pagePage, pageSize, sort);
+        } else {
+            pageable = PageRequest.of(pagePage, pageSize);
+        }
+
+        return pageable;
     }
 }

@@ -38,4 +38,6 @@ public interface IBaseService<T extends BaseModel, PK extends Serializable> {
     void deleteAll();
 
     void deleteAllByIds(Iterable<? extends PK> ids);
+
+    Pageable getPageable(int page, int size, String direction, String properties);
 }
