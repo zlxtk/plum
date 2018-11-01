@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "order")
+@Table(name = "plum_order")
 public class Order extends BaseModel {
 
     @Id
@@ -38,7 +38,7 @@ public class Order extends BaseModel {
     private String phone;//顾客电话
 
     @Column()
-    private String addr;//顾客地址
+    private String address;//顾客地址
 
     @Column()
     private Integer price;//订单总价格

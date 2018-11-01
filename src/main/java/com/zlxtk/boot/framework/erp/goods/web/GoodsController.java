@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,7 +51,23 @@ public class GoodsController extends BaseController<Goods, Long> {
         Page<Goods> pages = goodsService.findAll(specification, pageable);
 
         model.addAttribute("pages", pages);
+        model.addAttribute("goodsCode",goodsCode);
         return "goods/index";
+    }
+
+    @RequestMapping(value ={"/goodsInfo"})
+    public String goodsInfo(Model model) {
+        return "goods/goodsInfo";
+    }
+
+    @PostMapping(value = "/createGoods")
+    public String create(Model model,Goods goods) {
+        try {
+            goods = goodsService.insert(goods);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage","创建失败。"+e.getMessage());
+        }
+        return "goods/goodsInfo";
     }
 
 

@@ -6,6 +6,7 @@ import com.zlxtk.boot.framework.base.exception.UpdateNotExistObjectException;
 import com.zlxtk.boot.framework.base.model.BaseModel;
 import com.zlxtk.boot.framework.base.repository.BaseRepository;
 import com.zlxtk.boot.framework.base.service.IBaseService;
+import com.zlxtk.boot.framework.security.util.SecurityUtils;
 import com.zlxtk.boot.framework.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -72,6 +73,7 @@ public class BaseService<T extends BaseModel, PK extends Serializable> implement
     public T insert(T o) {
         if (null == ObjectUtil.getEntityIdVaue(o)) {
             log.debug("@Base Repository Service create new object: " + o);
+            o.setCreateUser(SecurityUtils.getCurrentUserName());
             return baseRepository.save(o);
         } else {
             throw new InsertExistObjectException();

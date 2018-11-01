@@ -8,248 +8,179 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
     <title>erp-商品列表</title>
-
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
-
     <!-- No Baidu Siteapp-->
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-
-    <link rel="icon" type="image/png" href="${request.contextPath}/amazeUI/i/favicon.png">
-
+    <link rel="icon" type="image/png" href="${request.contextPath}/amazeui/i/favicon.png">
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="${request.contextPath}/amazeUI/i/app-icon72x72@2x.png">
-
+    <link rel="icon" sizes="192x192" href="${request.contextPath}/amazeui/i/app-icon72x72@2x.png">
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-    <link rel="apple-touch-icon-precomposed" href="${request.contextPath}/amazeUI/i/app-icon72x72@2x.png">
-
+    <link rel="apple-touch-icon-precomposed" href="${request.contextPath}/amazeui/i/app-icon72x72@2x.png">
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="${request.contextPath}/amazeUI/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileImage" content="${request.contextPath}/amazeui/i/app-icon72x72@2x.png">
     <meta name="msapplication-TileColor" content="#0e90d2">
 
-    <link rel="stylesheet" href="${request.contextPath}/amazeUI/css/amazeUI.min.css">
-    <link rel="stylesheet" href="${request.contextPath}/amazeUI/css/amazeUI.flat.css">
-    <link rel="stylesheet" href="${request.contextPath}/amazeUI/css/app.css">
-    <link rel="stylesheet" href="${request.contextPath}/amazeUI/css/admin.css">
+    <link rel="stylesheet" href="${request.contextPath}/amazeui/css/amazeui.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/amazeui/css/amazeui.flat.css">
+    <link rel="stylesheet" href="${request.contextPath}/amazeui/css/app.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/goodsStyle.css">
+    <script type="text/javascript">
+
+    </script>
 </head>
 <body>
 
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-    以获得更好的体验！</p>
-<![endif]-->
-
-<header class="am-topbar am-topbar-inverse admin-header">
-    <div class="am-topbar-brand">
-        <strong>Amaze UI</strong>
-        <small>后台管理模板</small>
+<div class="container">
+    <header data-am-widget="header" class="am-header am-header-default my-header">
+        <div class="am-header-left am-header-nav">
+            <a href="#left-link" class="">
+                <i class="am-header-icon am-icon-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">会员中心</a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="#right-link" class="">
+                <i class="am-header-icon  am-icon-home"></i>
+            </a>
+        </div>
+    </header>
+    <div class="uchome-info">
+        <div class="uchome-info-uimg">
+            <img src="default/img1.jpg" />
+        </div>
+        <div class="uchome-info-uinfo">
+            <p>王小丫，欢迎光临！[<a href="#" class="white">退出登录</a>]</p>
+            <p>帐号：XiaoyaWang，余额：<span class="red">￥20000.00</span></p>
+            <p>积分：<span class="red">2531</span>，消息：<a href="#" class="red">12</a></p>
+        </div>
     </div>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-            <li><a href="logout"><span class="am-icon-envelope-o"></span> 注销 </a></li>
+    <!--头部导航-->
+    <div class="am-cf uchome-nav">
+        <ul class="am-avg-sm-5">
+            <li><a href="#">今日签到</a></li>
+            <li><a href="#">我的资料</a></li>
+            <li><a href="#">我的二维码</a></li>
+            <li><a href="#">升级为商家</a></li>
+            <li><a href="#">我的伙伴</a></li>
         </ul>
     </div>
-</header>
-
-<div class="am-cf admin-main">
-    <!-- sidebar start -->
-    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class="am-offcanvas-bar admin-offcanvas-bar">
-            <ul class="am-list admin-sidebar-list">
-                <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
-                <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
-                        页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                        <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                        <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
-                        <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span
-                                class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-                        <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 系统日志</a></li>
-                        <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
-                    </ul>
-                </li>
-                <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-                <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
-                <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
-            </ul>
-
-            <div class="am-panel am-panel-default admin-sidebar-panel">
-                <div class="am-panel-bd">
-                    <p><span class="am-icon-bookmark"></span> 公告</p>
-                    <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
-                </div>
+    <div class="my-nav-bar">
+        <ol class="am-breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">商品</a></li>
+        </ol>
+    </div>
+    <div style="margin-top: 10px;margin-left: 10px;">
+        <form action="${request.contextPath}/goods/index" method="post">
+            <div >
+                <label  class="am-form-label">货号:</label>
+                <input type="text" id="doc-ipt-3" name="goodsCode" value="${goodsCode!''}" placeholder="请输入货号">
+                <input type="submit" class="am-btn am-btn-primary am-btn-xs am-btn-success am-radius" value="搜索">
+                <a href="${request.contextPath}/goods/goodsInfo" class="am-btn am-btn-primary am-btn-xs am-btn-success am-radius">新建商品</a>
             </div>
-
-            <div class="am-panel am-panel-default admin-sidebar-panel">
-                <div class="am-panel-bd">
-                    <p><span class="am-icon-tag"></span> wiki</p>
-                    <p>Welcome to the Amaze UI wiki!</p>
-                </div>
+        </form>
+    </div>
+    <div></div>
+    <div class="am-cf cart-panel">
+        <#if pages.totalElements!=0>
+            <#list pages.content as goods >
+        <div class="withdrawals-panel">
+            <p class="groupby-t-p"><span class="am-fr"></span>货号：${goods.goodsCode!''}</p>
+            <hr  class="am-divider am-divider-default am-cf"/>
+            <div class="groupby-img-panle"><a href="#"><img src="${goods.imgUrl!''}" class="am-img-responsive" /></a></div>
+            <div class="groupby-info-panle">
+                <h3><a href="#">${goods.goodsName!''}</a></h3>
+                <p>售价：<span class="red2 bold">${goods.price!''}</span> 元 &nbsp; &nbsp;&nbsp;  最低售价：<span class="am-text-success">${goods.leastPrice!''}</span> 元 </p>
+                <p>进货价：${goods.costing!''}  元 &nbsp; &nbsp; &nbsp;&nbsp;   库存：${goods.count!''}</p>
+                <!--<p>状态：<span class="am-text-success">已付款</span></p>-->
+                <p><a href="#" class="am-btn am-btn-primary am-btn-xs am-btn-success am-radius">进货</a>
+                    <a href="#" class="am-btn am-btn-primary am-btn-xs am-btn-danger am-radius">返货</a>
+                </p>
             </div>
         </div>
-    </div>
-    <!-- sidebar end -->
 
-    <!-- content start -->
-    <div class="admin-content">
-        <div class="admin-content-body">
-            <div class="am-cf am-padding am-padding-bottom-0">
-                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表格</strong> /
-                    <small>Table</small>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="am-g">
-                <div class="am-u-sm-12 am-u-md-6">
-                    <div class="am-btn-toolbar">
-                        <div class="am-btn-group am-btn-group-xs">
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 进货
-                            </button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 返货
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="am-u-sm-12 am-u-md-3">
-                    <div class="am-form-group">
-                        <span>货号：</span>
-                    </div>
-                </div>
-                <div class="am-u-sm-12 am-u-md-3">
-                    <div class="am-input-group am-input-group-sm">
-                        <input type="text" class="am-form-field" name="goodsCode">
-                        <span class="am-input-group-btn">
-                            <button class="am-btn am-btn-default" type="button">搜索</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="admin-content">
-                <div class="admin-content-body">
-                    <div class="am-cf am-padding am-padding-bottom-0">
-                        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表格</strong> /
-                            <small>Table</small>
-                        </div>
-                    </div>
-
-                    <hr>
-
-
-                    <div class="am-g">
-                        <div class="am-u-sm-12">
-                            <form class="am-form">
-                                <table class="am-table am-table-striped am-table-hover table-main">
-                                    <thead>
-                                    <tr>
-                                        <th class="table-check"><input type="checkbox"/></th>
-                                        <th class="table-date">图片</th>
-                                        <th class="table-id">货号</th>
-                                        <th class="table-title">名称</th>
-                                        <th class="table-title">库存</th>
-                                        <th class="table-type">价格</th>
-                                        <th class="table-author am-hide-sm-only">进货价</th>
-                                        <th class="table-set">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <#if pages.totalElements!=0>
-                                    <#list pages.content as goods >
-                                    <tr>
-                                        <td><input type="checkbox"/></td>
-                                        <td>${goods.imgUrl!''}</td>
-                                        <td><a href="#">${goods.goodsCode!''}</a></td>
-                                        <td>${goods.goodsName!''}</td>
-                                        <td>${goods.count!''}</td>
-                                        <td class="">${goods.price!''}</td>
-                                        <td class="am-hide-sm-only">${goods.leastPrice!''}</td>
-                                        <td>
-                                            <div class="am-btn-toolbar">
-                                                <div class="am-btn-group am-btn-group-xs">
-                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
-                                                            class="am-icon-pencil-square-o"></span> 销售
-                                                    </button>
-                                                    <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span
-                                                            class="am-icon-copy"></span> 退货
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </#list>
-                                    <#else>
-                                    <tr>
-                                        <td>没有该货号商品</td>
-                                    </tr>
-                                </#if>
-
-                                </tbody>
-                                </table>
-                                <div class="am-cf">
-                                    共 ${pages.totalElements} 条记录
-                                    <div class="am-fr">
-                                        <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
-                                            <li class="am-pagination-prev ">
-                                                <a href="#" class="">上一页</a>
-                                            </li>
-                                            <li class="am-pagination-select">
-                                                <select>
-                                                    <option value="#" class="">1
-                                                        /
-                                                    </option>
-                                                    <option value="#" class="">2
-                                                        /
-                                                    </option>
-                                                    <option value="#" class="">3
-                                                        /
-                                                    </option>
-                                                </select>
-                                            </li>
-                                            <li class="am-pagination-next ">
-                                                <a href="#" class="">下一页</a>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <p>注：.....</p>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-                <footer class="admin-content-footer">
-                    <hr>
-                    <p class="am-padding-left">天地为炉兮万物为铜，阴阳为炭兮造化为工</p>
-                </footer>
-
-            </div>
+            </#list>
+        <#else>
+        <div>
+            <span>没有商品</span>
         </div>
+        </#if>
+
+        <ul class="am-pagination am-pagination-centered">
+            <li class="am-disabled"><a href="#">&laquo;</a></li>
+            <li class="am-active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
     </div>
-    <!-- content end -->
+
+    <footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{  }">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+        <div class="am-footer-miscs ">
+            <p>CopyRight©2014 AllMobilize Inc.</p>
+            <p>京ICP备13033158</p>
+        </div>
+    </footer>
+    <!--底部-->
+    <div data-am-widget="navbar" class="am-navbar am-cf my-nav-footer " id="">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4 my-footer-ul">
+            <li>
+                <a href="/wap/" class="">
+                    <span class="am-icon-home"></span>
+                    <span class="am-navbar-label">首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="###" class="">
+                    <span class=" am-icon-phone"></span>
+                    <span class="am-navbar-label">电话</span>
+                </a>
+            </li>
+            <li>
+                <a href="###" class="">
+                    <span class=" am-icon-comments"></span>
+                    <span class="am-navbar-label">聊天</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="">
+                    <span class=" am-icon-map-marker"></span>
+                    <span class="am-navbar-label">地图</span>
+                </a>
+            </li>
+            <li style="position:relative">
+                <a href="javascript:;" onClick="showFooterNav();" class="">
+                    <span class="am-icon-user"></span>
+                    <span class="am-navbar-label">会员</span>
+                </a>
+                <div class="footer-nav" id="footNav">
+                    <span class=" am-icon-bank"><a href="#">买家中心</a></span>
+                    <span class="am-icon-suitcase"><a href="#">卖家中心</a></span>
+                    <span class="am-icon-usd"><a href="#">我的钱包</a></span>
+                    <span class="am-icon-user"><a href="#">个人资料</a></span>
+                    <span class="am-icon-th-list"><a href="#">帮助中心</a></span>
+                    <span class="am-icon-comments"><a href="#">消息中心</a></span>
+                    <span class="am-icon-power-off"><a href="#">安全退出</a></span>
+                </div>
+            </li>
+        </ul>
+        <script>
+            function showFooterNav(){
+                $("#footNav").toggle();
+            }
+        </script>
+    </div>
 </div>
-
-<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
-   data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-
-<footer>
-    <hr>
-    <p class="am-padding-left">天地为炉兮万物为铜，阴阳为炭兮造化为工</p>
-</footer>
 
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="${request.contextPath}/jquery/dist/jquery.slim.js"></script>
@@ -257,8 +188,8 @@
 <!--[if lte IE 8 ]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="${request.contextPath}/amazeUI/js/amazeUI.ie8polyfill.min.js"></script>
+<script src="${request.contextPath}/amazeui/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
-<script src="${request.contextPath}/amazeUI/js/amazeUI.min.js"></script>
+<script src="${request.contextPath}/amazeui/js/amazeui.min.js"></script>
 </body>
 </html>
