@@ -31,9 +31,8 @@
     <link rel="stylesheet" href="${request.contextPath}/amazeui/css/amazeui.flat.css">
     <link rel="stylesheet" href="${request.contextPath}/amazeui/css/app.css">
     <link rel="stylesheet" href="${request.contextPath}/css/goodsStyle.css">
-    <script type="text/javascript">
 
-    </script>
+
 </head>
 <body>
 <div class="container">
@@ -54,7 +53,19 @@
     </header>
     <div class="am-text-warning am-u-sm-12">${errorMessage!''}</div>
     <div class="cart-panel">
+        <div>
+            <img id="goodsImg"  class="am-img-responsive" alt=""/>
+            <form id="imgForm" action="${request.contextPath}/sys/file/uploadProcessFiles" method="post" enctype="multipart/form-data">
+                <p>选择文件: <input id="upfile" type="file" name="fileName"/></p>
+                <p><input type="button" id="updateImg" value="提交"/></p>
+            </form>
+
+        </div>
         <form class="am-form" action="${request.contextPath}/goods/createGoods" method="post" Content-Type="">
+            <div class="am-form-group am-form-icon">
+                <i class="" style="color:#329cd9">货号</i>
+                <input id="goodsCode" type="text" name="goodsCode" class="am-form-field  my-radius" placeholder="请输入货号">
+            </div>
             <div class="am-form-group am-form-icon">
                 <i class="" style="color:#329cd9">货号</i>
                 <input id="goodsCode" type="text" name="goodsCode" class="am-form-field  my-radius" placeholder="请输入货号">
@@ -142,15 +153,32 @@
         <!--</script>-->
     <!--</div>-->
 </div>
+<script src="${request.contextPath}/jquery/dist/jquery.min.js"></script>
 
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="${request.contextPath}/jquery/dist/jquery.slim.js"></script>
-<!--<![endif]-->
-<!--[if lte IE 8 ]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="${request.contextPath}/amazeui/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
 <script src="${request.contextPath}/amazeui/js/amazeui.min.js"></script>
+<script type="text/javascript">
+    var cxt="${request.contextPath}";
+    //上传图片
+    $("#updateImg").on('click', function(){
+        var fd = new FormData();
+        fd.append("fileName", $("#upfile").get(0).files[0]);
+        $.ajax({
+            url: '${request.contextPath}/sys/file/uploadProcessFiles',
+            type: 'POST',
+            data: fd,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data.toString());
+
+            },
+            error: function (data){
+                alter("提交失败");
+            }
+        });
+    });
+</script>
 </body>
 </html>
