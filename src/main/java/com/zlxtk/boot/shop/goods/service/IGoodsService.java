@@ -1,7 +1,7 @@
-package com.zlxtk.boot.framework.erp.goods.service;
+package com.zlxtk.boot.shop.goods.service;
 
 import com.zlxtk.boot.framework.base.service.IBaseService;
-import com.zlxtk.boot.framework.erp.goods.model.Goods;
+import com.zlxtk.boot.shop.goods.model.Goods;
 
 public interface IGoodsService extends IBaseService<Goods, Long> {
 

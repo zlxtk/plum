@@ -1,7 +1,7 @@
-package com.zlxtk.boot.framework.erp.goods.repository;
+package com.zlxtk.boot.shop.goods.repository;
 
 import com.zlxtk.boot.framework.base.repository.BaseRepository;
-import com.zlxtk.boot.framework.erp.goods.model.Goods;
+import com.zlxtk.boot.shop.goods.model.Goods;
 
 public interface GoodsRepository extends BaseRepository<Goods, Long> {
 

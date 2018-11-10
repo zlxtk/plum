@@ -1,12 +1,12 @@
 /*
  * 版权所有 © 北京晟壁科技有限公司 2008-2027。保留一切权利!
  */
-package com.zlxtk.boot.framework.erp.goods.web;
+package com.zlxtk.boot.shop.goods.web;
 
 import com.github.wenhao.jpa.Specifications;
 import com.zlxtk.boot.framework.base.web.controller.BaseController;
-import com.zlxtk.boot.framework.erp.goods.model.Goods;
-import com.zlxtk.boot.framework.erp.goods.service.IGoodsService;
+import com.zlxtk.boot.shop.goods.model.Goods;
+import com.zlxtk.boot.shop.goods.service.IGoodsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

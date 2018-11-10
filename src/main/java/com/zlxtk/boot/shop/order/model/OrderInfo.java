@@ -1,4 +1,4 @@
-package com.zlxtk.boot.framework.erp.order.model;
+package com.zlxtk.boot.shop.order.model;
 
 import com.zlxtk.boot.framework.base.model.BaseModel;
 import lombok.*;

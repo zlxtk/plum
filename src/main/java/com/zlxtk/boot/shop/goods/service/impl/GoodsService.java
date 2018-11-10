@@ -1,10 +1,10 @@
-package com.zlxtk.boot.framework.erp.goods.service.impl;
+package com.zlxtk.boot.shop.goods.service.impl;
 
 
 import com.zlxtk.boot.framework.base.service.impl.BaseService;
-import com.zlxtk.boot.framework.erp.goods.model.Goods;
-import com.zlxtk.boot.framework.erp.goods.repository.GoodsRepository;
-import com.zlxtk.boot.framework.erp.goods.service.IGoodsService;
+import com.zlxtk.boot.shop.goods.model.Goods;
+import com.zlxtk.boot.shop.goods.repository.GoodsRepository;
+import com.zlxtk.boot.shop.goods.service.IGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
