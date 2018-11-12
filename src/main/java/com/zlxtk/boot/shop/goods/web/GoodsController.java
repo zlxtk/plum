@@ -52,7 +52,7 @@ public class GoodsController extends BaseController<Goods, Long> {
 
         model.addAttribute("pages", pages);
         model.addAttribute("goodsCode",goodsCode);
-        return "goods/index";
+        return "shop/goods/index";
     }
 
     @RequestMapping(value ={"/goodsInfo"})
@@ -67,7 +67,7 @@ public class GoodsController extends BaseController<Goods, Long> {
         } catch (Exception e) {
             model.addAttribute("errorMessage","创建失败。"+e.getMessage());
         }
-        return "goods/goodsInfo";
+        return "shop/goods/goodsInfo";
     }
 
 
