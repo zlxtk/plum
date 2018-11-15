@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/shop/goods")
 public class GoodsController extends BaseController<Goods, Long> {
 
     private IGoodsService goodsService;
