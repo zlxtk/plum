@@ -1,81 +1,22 @@
-<!-- Left side column. contains the logo and sidebar -->
-<aside class="main-sidebar">
-
-    <!-- sidebar: style can be found in sidebar.less -->
-    <li class="sidebar">
-
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="${request.contextPath}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>${user.username!'游客'}</p>
-                <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
-
-        <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-            </div>
-        </form>
-        <!-- /.search form -->
-
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">HEADER</li>
-
-                <#list user.menus[moduleCode].childs as permission >
-                    <#if permission.permissionType=="访问路径">
-                        <#if permission.childs?size gt 0>
-                            <li class="treeview <#if permission.permissionCode==moduleCode > active </#if>">
-                                <a href="#"><i class="fa fa-link"></i> <span>${permission.description!''}</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <#list permission.childs as child>
-                                        <li <#if permission.permissionCode==moduleCode> class="active" </#if> >
-                                            <a href="${request.contextPath}${(child.permissionUrl)!''}">${child.description!''}</a>
-                                        </li>
-                                    </#list>
-                                </ul>
-                            </li>
-                        <#else>
-                            <li <#if permission.permissionCode?starts_with(moduleCode)> class="active" </#if> >
-                                <a href="${request.contextPath}${(permission.permissionUrl)!'#'}">
-                                    <i class="fa ${(permission.icon)!'fa-link'}"></i>
-                                    <span>${permission.description!''}</span>
-                                </a>
-                            </li>
-                        </#if>
-                    </#if>
-                </#list>
-
-            <!--&lt;!&ndash; Optionally, you can add icons to the links &ndash;&gt;-->
-            <!--<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>-->
-            <!--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
-            <!--<li class="treeview">-->
-                <!--<a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>-->
-                    <!--<span class="pull-right-container">-->
-                <!--<i class="fa fa-angle-left pull-right"></i>-->
-              <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="treeview-menu">-->
-                    <!--<li><a href="#">Link in level 2</a></li>-->
-                    <!--<li><a href="#">Link in level 2</a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
+<div class="layui-side layui-bg-black">
+    <div class="user-photo">
+        <a class="img" title="我的头像" ><img src="${user.photo!''}" class="userAvatar"></a>
+        <p>你好！<span class="userName">${user.truename!''}</span>, 欢迎登录</p>
+    </div>
+    <!-- 搜索 -->
+    <div class="layui-form component">
+        <select name="search" id="search" lay-search lay-filter="searchPage">
+            <option value="">搜索页面或功能</option>
+            <option value="1">layer</option>
+            <option value="2">form</option>
+        </select>
+        <i class="layui-icon">&#xe615;</i>
+    </div>
+    <div class="navBar layui-side-scroll" id="navBar">
+        <ul class="layui-nav layui-nav-tree">
+            <li class="layui-nav-item layui-this">
+                <a href="javascript:;" data-url="page/main.html"><i class="layui-icon" data-icon=""></i><cite>后台首页</cite></a>
+            </li>
         </ul>
-        <!-- /.sidebar-menu -->
-    </section>
-    <!-- /.sidebar -->
-</aside>
+    </div>
+</div>

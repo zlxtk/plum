@@ -46,11 +46,14 @@ public class SysUser extends BaseModel implements UserDetails {
     @Column(length = 13, unique = true)
     private String phone;
 
+    @Column(length = 255)
+    private String photo;
+
     @Transient
     private Set<SysRole> roles;
 
     @Transient
-    private Map<String, SysPermission> menus;//用户的菜单<MODULE权限的code,MODULE菜单>
+    private List<SysPermission> menus;//用户的菜单<MODULE菜单>
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

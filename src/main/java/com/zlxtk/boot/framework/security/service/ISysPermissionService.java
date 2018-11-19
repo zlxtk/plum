@@ -4,7 +4,6 @@ import com.zlxtk.boot.framework.base.service.IBaseService;
 import com.zlxtk.boot.framework.security.model.SysPermission;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description:
@@ -15,6 +14,6 @@ public interface ISysPermissionService extends IBaseService<SysPermission, Long>
 
     List<SysPermission> findAllByRoleCode(String roleCode);
 
-    Map<String, SysPermission> formatPermission(List<SysPermission> permissions);
+    List<SysPermission> formatPermission(List<SysPermission> permissions);
 
 }

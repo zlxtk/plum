@@ -45,10 +45,10 @@ public class SysPermissionService extends BaseService<SysPermission, Long> imple
      * @return 模块列表
      */
     @Override
-    public Map<String, SysPermission> formatPermission(List<SysPermission> permissions) {
+    public List<SysPermission> formatPermission(List<SysPermission> permissions) {
         //以上级parentCode为keys组装成map
         Map<String, List<SysPermission>> map = new HashMap<>();
-        List<Map<String,SysPermission>> returnList = new ArrayList<>();
+        List<SysPermission> returnList = new ArrayList<>();
         for (SysPermission p : permissions) {
             if(StringUtils.isEmpty(p.getParentCode())){
                 p.setParentCode("");
@@ -56,7 +56,7 @@ public class SysPermissionService extends BaseService<SysPermission, Long> imple
             if (p.getParentCode().equals("/")) {
                 Map<String,SysPermission> m=new HashMap<>();
                 m.put(p.getParentCode(),p);
-                returnList.add(m);
+                returnList.add(p);
             }
             if (map.get(p.getParentCode()) == null) {
                 List<SysPermission> list = new ArrayList<>();
@@ -70,7 +70,6 @@ public class SysPermissionService extends BaseService<SysPermission, Long> imple
         for (SysPermission permission : permissions) {
             permission.setChilds(map.get(permission.getPermissionCode()));
         }
-//        return returnList;
-        return null;
+        return returnList;
     }
 }
