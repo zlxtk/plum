@@ -43,7 +43,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
     //@PreAuthorize ("hasAnyAuthority('ROLE_SUPER','ROLE_ADMIN')")
     @ApiOperation(value = "新增一个字典类型", notes = "新增一个字典类型")
     public JsonResponse create(@RequestBody(required = false) SysDict sysDict) {
-        return super.create( sysDict );
+        return super.createAjax( sysDict );
     }
 
     /**
@@ -55,7 +55,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
     //@PreAuthorize("hasAnyAuthority('ROLE_SUPER','ROLE_ADMIN')")
     @ApiOperation(value = "修改一个字典类型", notes = "修改一个字典类型")
     public JsonResponse update( @RequestBody(required = false) SysDict sysDict) {
-        return super.update(sysDict );
+        return super.updateAjax(sysDict );
     }
 
     /**
@@ -67,7 +67,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
     @ApiOperation(value = "根据id删除字典类型", notes = "根据id删除字典类型")
     @ApiImplicitParam(name = "id", value = "字典类型ID",  dataType = "String", paramType = "query")
     public JsonResponse deleteById(@RequestParam(required = false) String id) {
-        return super.deleteById( Long.parseLong(id) );
+        return super.deleteByIdAjax( Long.parseLong(id) );
     }
 
     /**
@@ -77,7 +77,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
      */
     @ApiOperation(value = "先修改再逻辑删除字典类型", notes = "先修改再逻辑删除字典类型")
     public JsonResponse delete(@RequestBody(required = false) SysDict sysDict) {
-        return super.delete(sysDict);
+        return super.deleteAjax(sysDict);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
         for(int i=0;i<ids.length;i++){
             idsL[i]=Long.parseLong(ids[i]);
         }
-        return  super.deleteAllByIds(idsL);
+        return  super.deleteAllByIdsAjax(idsL);
     }
 
     /**
@@ -113,7 +113,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
         }else{
             dict.setState(ApplicationConstants.MODEL_STATE_UNENABLE);
         }
-        return  super.update(dict);
+        return  super.updateAjax(dict);
     }
 
     //批量修改可见
@@ -127,7 +127,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
     @ApiImplicitParam(name = "id", value = "字典类型ID", dataType = "String", paramType = "query")
     @PostMapping(value = {"/findById","/findById/sso"})
     public JsonResponse findById(@RequestParam(required = false) String id) {
-        return super.findById( Long.parseLong(id) );
+        return super.findByIdAjax( Long.parseLong(id) );
     }
 
     /**
@@ -157,7 +157,7 @@ public class SysDictController extends BaseController<SysDict, Long> {
                                 @RequestParam(required = false) String properties, //
                                 @RequestBody(required = false) SysDict sysDict //
     ) {
-        return super.findAll( page,size,direction, properties,sysDict);
+        return super.findAllAjax( page,size,direction, properties,sysDict);
     }
 
 

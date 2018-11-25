@@ -41,8 +41,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
     }
 
     @ResponseBody
-    @PostMapping(value = "/findById")
-    public JsonResponse findById(@RequestParam PK id) {
+    @PostMapping(value = "/findByIdAjax")
+    public JsonResponse findByIdAjax(@RequestParam PK id) {
         return JsonResponse.success(service.findById(id));
     }
 
@@ -56,8 +56,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
      * @return
      */
     @ResponseBody
-    @PostMapping(value = "/findAll")
-    public JsonResponse findAll(@RequestParam(required = false, defaultValue = "1") int page, //
+    @PostMapping(value = "/findAllAjax")
+    public JsonResponse findAllAjax(@RequestParam(required = false, defaultValue = "1") int page, //
                                 @RequestParam(required = false, defaultValue = "10") int size, //
                                 @RequestParam(required = false) String direction, //
                                 @RequestParam(required = false) String properties,
@@ -86,8 +86,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
     }
 
     @ResponseBody
-    @PostMapping(value = "/create")
-    public JsonResponse create(@RequestBody T o) {
+    @PostMapping(value = "/createAjax")
+    public JsonResponse createAjax(@RequestBody T o) {
         try {
             o = service.insert(o);
             return JsonResponse.success(o);
@@ -102,8 +102,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
      * @return
      */
     @ResponseBody
-    @PostMapping(value = "/update")
-    public JsonResponse update(@RequestBody T newObj) {
+    @PostMapping(value = "/updateAjax")
+    public JsonResponse updateAjax(@RequestBody T newObj) {
         T oldObj = service.findById((PK) ObjectUtil.getEntityIdVaue(newObj));
         CustomBeanUtil.copyPropertiesIgnoreNull(newObj, oldObj);
         try {
@@ -114,8 +114,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
         }
     }
 
-    @PostMapping(value = "/deleteById")
-    public JsonResponse deleteById(@RequestParam PK id) {
+    @PostMapping(value = "/deleteByIdAjax")
+    public JsonResponse deleteByIdAjax(@RequestParam PK id) {
         try {
             service.deleteById(id);
             return JsonResponse.defaultSuccessResponse();
@@ -125,8 +125,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
     }
 
     @ResponseBody
-    @PostMapping(value = "/delete")
-    public JsonResponse delete(@RequestBody T o) {
+    @PostMapping(value = "/deleteAjax")
+    public JsonResponse deleteAjax(@RequestBody T o) {
         try {
             service.delete(o);
             return JsonResponse.defaultSuccessResponse();
@@ -136,8 +136,8 @@ public class BaseController<T extends BaseModel, PK extends Serializable> {
     }
 
     @ResponseBody
-    @PostMapping(value = "/deleteAllByIds")
-    public JsonResponse deleteAllByIds(@RequestBody PK[] ids) {
+    @PostMapping(value = "/deleteAllByIdsAjax")
+    public JsonResponse deleteAllByIdsAjax(@RequestBody PK[] ids) {
         try {
             service.deleteAllByIds(Arrays.asList(ids));
             return JsonResponse.defaultSuccessResponse();

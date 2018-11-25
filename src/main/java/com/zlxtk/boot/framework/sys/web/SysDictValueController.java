@@ -43,7 +43,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
     //@PreAuthorize ("hasAnyAuthority('ROLE_SUPER','ROLE_ADMIN')")
     @ApiOperation(value = "新增一个字典值", notes = "新增一个字典值")
     public JsonResponse create(@RequestBody(required = false) SysDictValue sysDictValue) {
-        return super.create( sysDictValue );
+        return super.createAjax( sysDictValue );
     }
 
     /**
@@ -55,7 +55,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
     //@PreAuthorize("hasAnyAuthority('ROLE_SUPER','ROLE_ADMIN')")
     @ApiOperation(value = "修改一个字典值", notes = "修改一个字典值")
     public JsonResponse update( @RequestBody(required = false) SysDictValue sysDictValue) {
-        return super.update(sysDictValue );
+        return super.updateAjax(sysDictValue );
     }
 
     /**
@@ -67,7 +67,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
     @ApiOperation(value = "根据id删除字典值", notes = "根据id删除字典值")
     @ApiImplicitParam (name = "id", value = "字典值ID",  dataType = "Integer", paramType = "query")
     public JsonResponse deleteById(@RequestParam(required = false) String id) {
-        return super.deleteById( Long.parseLong(id)  );
+        return super.deleteByIdAjax( Long.parseLong(id)  );
     }
 
     /**
@@ -77,7 +77,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
      */
     @ApiOperation(value = "先修改再逻辑删除字典值", notes = "先修改再逻辑删除字典值")
     public JsonResponse delete(SysDictValue sysDictValue) {
-        return super.delete(sysDictValue);
+        return super.deleteAjax(sysDictValue);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
         for(int i=0;i<ids.length;i++){
             idsL[i]=Long.parseLong(ids[i]);
         }
-        return  super.deleteAllByIds(idsL);
+        return  super.deleteAllByIdsAjax(idsL);
     }
 
     /**
@@ -120,7 +120,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
     @ApiImplicitParam(name = "id", value = "字典类型ID", dataType = "Integer", paramType = "query")
     @PostMapping(value = {"/findById","/findById/sso"})
     public JsonResponse findById(@RequestParam(required = false) String id) {
-        return super.findById( Long.parseLong(id)  );
+        return super.findByIdAjax( Long.parseLong(id)  );
     }
 
     /**
@@ -150,7 +150,7 @@ public class SysDictValueController extends BaseController<SysDictValue,Long> {
                                 @RequestParam(required = false) String properties, //
                                 @RequestBody(required = false) SysDictValue sysDictValue //
     ) {
-        return super.findAll( page,size,direction, properties,sysDictValue);
+        return super.findAllAjax( page,size,direction, properties,sysDictValue);
     }
 
 
