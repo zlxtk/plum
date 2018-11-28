@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "plum_order")
+@Table(name = "shop_order")
 public class Order extends BaseModel {
 
     @Id

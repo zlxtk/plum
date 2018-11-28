@@ -53,7 +53,7 @@ public class SysPermissionService extends BaseService<SysPermission, Long> imple
             if(StringUtils.isEmpty(p.getParentCode())){
                 p.setParentCode("");
             }
-            if (p.getParentCode().equals("/")) {
+            if (p.getPermissionType().equals("功能模块")) {
                 Map<String,SysPermission> m=new HashMap<>();
                 m.put(p.getParentCode(),p);
                 returnList.add(p);

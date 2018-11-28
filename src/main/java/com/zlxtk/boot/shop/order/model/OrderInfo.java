@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "orderInfo")
+@Table(name = "shop_order_info")
 public class OrderInfo extends BaseModel {
 
     @Id
