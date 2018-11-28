@@ -1,7 +1,6 @@
 package com.zlxtk.boot.framework.security.model;
 
 import com.zlxtk.boot.framework.base.model.BaseModel;
-import com.zlxtk.boot.framework.security.enums.SysPermissionTypeEnum;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -32,26 +31,37 @@ public class SysPermission extends BaseModel {
     @Column(nullable = false, length = 100, unique = true)
     private String permissionCode;//权限编码
 
+    @NonNull
+    @Column(nullable = false, length = 100)
+    private String permissionName;//权限名称
+
     @Column(length = 100)
     private String parentCode;//上级权限编码
+
+    @Column(length = 100)
+    private String moduleCode;//所属module编码，方便查询用，新增时自动设置
 
     @Column
     private String description;//描述
 
+    /**
+     * 根，只有一个/,下级全是module或admin_module
+     * 每个系统模块有前台和后台两个权限模块，
+     *      比如shop系统模块，在权限中有/shop(前台)和/shop/admin(后台)两个权限模块数据
+     */
     @NonNull
     @Column(nullable = false, length = 30)
-    @Enumerated(EnumType.STRING)
-    private SysPermissionTypeEnum permissionType;//权限类型
+    private String permissionType;//权限类型,对应SysPermissionTypeConstants中的常量
 
     /**
-     * 级别只有2级，1或2，分别对应管理后台左侧菜单的一、二级
+     * 级别
      */
     @NonNull
     @Column(length = 3)
     private Integer permissionLevel; //权限级别
 
     @Column()
-    private String permissionUrl;
+    private String permissionUrl;//权限url
 
     @Column(length = 50)
     private String icon;//图标
@@ -88,8 +98,4 @@ public class SysPermission extends BaseModel {
         return ToStringBuilder.reflectionToString(this);
     }
 
-
-    public String getPermissionType() {
-        return this.permissionType.getValue();
-    }
 }

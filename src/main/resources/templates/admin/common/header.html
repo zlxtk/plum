@@ -15,12 +15,14 @@
         </dl>
       </li>
     </ul>
-    <ul class="layui-nav topLevelMenus" pc>
+    <ul class="layui-nav topLevelMenus" >
       <#list user.menus as permission >
+        <#if permission.permissionType=='ADMIN_MODULE'>
       <li class="layui-nav-item layui-this" data-menu="contentManagement">
         <a href="javascript:;" permissionCode="${permission.permissionCode!''}"><i class="layui-icon" data-icon="${permission.icon!''}">${permission.icon!''}</i><cite>${permission.description!''}</cite></a>
       </li>
-    </#list>
+        </#if>
+      </#list>
     </ul>
     <!-- 顶部右侧菜单 -->
     <ul class="layui-nav top_menu">
