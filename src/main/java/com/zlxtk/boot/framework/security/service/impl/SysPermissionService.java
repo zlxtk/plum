@@ -42,7 +42,7 @@ public class SysPermissionService extends BaseService<SysPermission, Long> imple
      * 主要用于获取用户的菜单
      *
      * @param permissions 无上下级结构的权限列表
-     * @return 模块列表
+     * @return 模块列表 根据PermissionType可以确定是前台模块还是后天模块
      */
     @Override
     public List<SysPermission> formatPermission(List<SysPermission> permissions) {
